@@ -1,0 +1,41 @@
+<header>
+  <% if admin_signed_in? %>
+    <% if request.fullpath.include? "/admin" %><!--adminでログインしていてadmin画面にいる時-->
+      <%= link_to admin_root_path do %>
+        <h3>impasse</h3>
+      <% end %>
+      <%= link_to "ユーザーリスト", admin_users_path %>
+      <%= link_to "投稿リスト", admin_roads_path %>
+      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+
+    <% else %><!--adminでログインしていてadminにいない(ユーザー画面にいる)時-->
+      <%= link_to root_path do %>
+        <h3>impasse</h3>
+      <% end %>
+      <%= link_to "地点登録", new_road_path %>
+      <%= link_to "About",  "/homes/about" %>
+      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+    <% end %>
+
+  <% elsif user_signed_in? %><!--ユーザーがログインしていている時-->
+    <%= link_to root_path do %>
+      <h3>impasse</h3>
+    <% end %>
+    <%= link_to "地点登録", new_road_path %>
+    <%= link_to "About",  "/homes/about" %>
+    <%= link_to "マイページ", users_path %>
+    <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+
+  <% else %><!--adminもユーザーもログインしていない時-->
+    <%= link_to root_path do %>
+      <h3>impasse</h3>
+    <% end %>
+    <%= link_to new_user_session_path do %>
+      地点登録</br>
+      (ログイン要)
+    <% end %>
+    <%= link_to "About", "/homes/about" %>
+    <%= link_to "新規会員登録", new_user_registration_path %>
+    <%= link_to "ログイン", new_user_session_path %>
+  <% end %>
+</header>
