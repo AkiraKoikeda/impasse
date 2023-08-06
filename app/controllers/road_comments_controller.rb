@@ -1,0 +1,2 @@
+class RoadCommentsController < ApplicationController
+end
