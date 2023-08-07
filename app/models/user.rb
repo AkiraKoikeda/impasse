@@ -6,4 +6,8 @@ class User < ApplicationRecord
 
   has_many :roads, dependent: :destroy
   has_many :road_comments, dependent: :destroy
+
+  def active_for_authentication?
+    super && (is_deleted == false)
+  end
 end

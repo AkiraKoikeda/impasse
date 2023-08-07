@@ -1,2 +1,21 @@
-<h1>Public::Roads#new</h1>
-<p>Find me in app/views/public/roads/new.html.erb</p>
+<h1>地点登録</h1>
+<%= form_with(model: @road, local: true) do |f| %>
+  <div class="post">
+    <%= f.label :address, "位置情報" %>
+    <%= f.text_field :address %>
+    <%= f.label :latitude, "緯度" %>
+    <%= f.text_field :latitude, :value => "緯度", id: :latitude %>
+    <%= f.label :lng,"経度" %>
+    <%= f.text_field :longitude, :value =>"経度", id: :longitude %>
+    <%= f.label :car_model, "車種" %>
+    <%= f.text_field :car_model %>
+    <%= f.label :situation, "詳細説明" %>
+    <%= f.text_area :situation %>
+    
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<h2>Map</h2>
+
+<input id="address" type="textbox" value="GeekSalon">
