@@ -1,2 +1,19 @@
-<h1>Public::Users#edit</h1>
-<p>Find me in app/views/public/users/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="offset-1 col-4">
+      <h4>ユーザー編集</h4>
+    </div>
+    <div class="col-7"></div>
+    <div class="col-12">
+      <%= form_with model: current_user, url: users_path do |f| %>
+        <span>ユーザー名</span>
+        <%= f.text_field :name %></br>
+        <span>e-mailアドレス</span>
+        <%= f.email_field :email %></br>
+        <%= f.submit %>
+      <% end %>
+
+      <%= link_to '退会', unscribe_users_path %>
+    </div>
+  </div>
+</div>

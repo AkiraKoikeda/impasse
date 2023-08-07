@@ -9,6 +9,5 @@ class Public::RoadsController < ApplicationController
   end
 
   def index
-    @road = Road.new
   end
 end
