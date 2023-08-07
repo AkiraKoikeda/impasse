@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  scope module: :public do
+    get 'users/edit'  => 'users#edit' ,as: 'edit_users'
+    patch 'users' => 'users#update'
+  end
+
   #ユーザーログイン
   devise_for :users, skip: [:passwords], controllers: {
     registrations: "public/registrations",
@@ -15,7 +20,7 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "roads#index"
     get 'homes/about'
-    resources :users, only: [:index, :edit] do
+    resource :users, only: [:show] do
       get :unscribe, on: :collection
       patch :withdrawal, on: :collection
     end

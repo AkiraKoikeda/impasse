@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <h4><%= current_user.name %>さんのマイページ</h4>
+        <p>ユーザー名</p>
+        <div class="offset-1 col-11 text-center">
+          <%= current_user.name %>
+        </div>
+        <p>e-mailアドレス</p>
+        <div class="offset-1 col-11 text-center">
+          <%= current_user.email %>
+        </div>
+        <p><%= link_to '編集', edit_users_path %></p>
+    </div>
+  </div>
+</div>
+
+
