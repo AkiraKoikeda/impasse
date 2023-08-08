@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(version: 2023_08_06_093857) do
     t.text "situation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "latitude"
-    t.float "longitude"
+    t.float "lat"
+    t.float "lng"
   end
 
   create_table "users", force: :cascade do |t|

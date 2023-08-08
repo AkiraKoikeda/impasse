@@ -3,4 +3,6 @@ class Road < ApplicationRecord
 
   belongs_to :user
   has_many :road_comments, dependent: :destroy
+
+
 end

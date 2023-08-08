@@ -3,8 +3,8 @@
 
   <style>
     #map {
-      height: 600px;
-      width: 600px;
+      height: 800px;
+      width: 800px;
     }
   </style>
 
@@ -13,12 +13,11 @@
       geocoder = new google.maps.Geocoder()
 
          let map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 40.7828, lng: -73.9653},
+        center: {lat: 35.6803997, lng: 139.7690174},
         zoom: 12,
       });
     }
 
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>
-
 

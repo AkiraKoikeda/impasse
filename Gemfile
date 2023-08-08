@@ -62,3 +62,4 @@ gem 'dotenv-rails'
 gem 'gmaps4rails'
 
 gem 'geocoder'
+
