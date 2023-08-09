@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   }
 
   #管理者ログイン
-  devise_for :admin, controllers: {
+  devise_for :admin, skip: [:registration, :password], controllers: {
     sessions: "admin/sessions"
   }
 
@@ -30,8 +30,8 @@ Rails.application.routes.draw do
   #管理者側アクション
   namespace :admin do
     root to: "roads#index"
-    resources :users, only: [:index, :show, :edit]
-    resources :roads, only: [:index, :show, :edit]
+    resources :users, only: [:index, :show, :edit, :update]
+    resources :roads, only: [:index, :show, :edit, :update]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

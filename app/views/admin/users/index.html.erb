@@ -1,2 +1,25 @@
-<h1>Admin::Users#index</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<h4>ユーザーリスト</h4>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>ユーザー名</th>
+      <th>会員ステータス</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.name %></td>
+      <% if user.is_deleted == true %>
+        <td>退会</td>
+      <% else %>
+        <td>有効</td>
+      <% end %>
+      <td><%= link_to '詳細', admin_user_path(user.id) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
