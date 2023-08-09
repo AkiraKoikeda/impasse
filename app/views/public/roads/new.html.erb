@@ -3,7 +3,7 @@
   <div class="post">
     <%= f.label :address, "位置情報" %>
     <%= f.text_field :address %>
-    <%= f.text_field :lat %>
+    <%= f.text_field :lat, id: "lat" %>
     <%= f.text_field :lng %></br>
     <%= f.label :car_model, "車種" %>
     <%= f.text_field :car_model %>
@@ -18,7 +18,7 @@
 
 <div id='map'></div>
 
-<li>lat: <span id="lat"></span></li>
+<li>lat: <span ></span></li>
 <li>lng: <span id="lng"></span></li>
 <textarea id = "addressOutput"></textarea>
 
@@ -69,7 +69,8 @@
             alert("原因不明のエラーが発生しました。");
           }
           document.getElementById('addressOutput').value = address;
-        });
+        }
+      );
 
       //マーカーのリセット
       if(marker){
