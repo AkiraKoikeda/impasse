@@ -1,40 +1,75 @@
-<h1>地点登録</h1>
-<%= form_with model: @road do |f| %>
-  <div class="post">
-    <%= f.label :address, "位置情報" %>
-    <%= f.text_field :address %>
-    <%= f.text_field :lat, id: "lat" %>
-    <%= f.text_field :lng %></br>
-    <%= f.label :car_model, "車種" %>
-    <%= f.text_field :car_model %>
-    <%= f.label :situation, "詳細説明" %>
-    <%= f.text_area :situation %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 col-12">
+      <h4 class="col-3">地点登録</h4>
+        <div id='map'></div>
+    </div>
+    <div class="col-lg-6 col-12">
+      <div class="col-12 mb-5"></div>
+      <%= form_with model: @road, local: true do |f| %>
+        <div class="d-flex col-12 mb-3">
+          <span class="flex-fill bd-highlight col-3 align-items-center">住所</span>
+            <%= f.text_field :address, id: "addressOutput", class: "flex-fill rounded", placeholder: "自動入力" %>
+        </div>
+        <div class="d-flex col-12 mb-3">
+          <span class="flex-fill bd-highlight col-3 align-items-center">緯度</span>
+            <%= f.text_field :lat, id: 'lat', class: "flex-fill rounded", placeholder: "自動入力" %>
+        </div>
+        <div class="d-flex col-12 mb-3">
+          <span class="flex-fill bd-highlight col-3 align-items-center">経度</span>
+            <%= f.text_field :lng, id: 'lng', class: "flex-fill rounded", placeholder: "自動入力" %>
+        </div>
+        <div class="d-flex col-12 mb-3" id="star">
+          <span class="flex-fill bd-highlight col-3 align-items-center">走行難度</span>
+          <%= f.hidden_field :star, id: :review_star, class: 'flex-fill' %>
+          <div id="post_raty"></div>
+        </div>
+        <script>
+          $(document).on('turbolinks:load', function() {
+            let elem = document.querySelector('#post_raty');
+            if (elem == null) return;
 
-    <%= f.submit %>
+            elem.innerHTML = ""
+            let opt = {
+              starOn: "<%= asset_path('star-on.png') %>",
+              starOff: "<%= asset_path('star-off.png') %>",
+              scoreName: 'road[star]',
+            };
+            raty(elem, opt);
+          });
+        </script>
+        <div class="d-flex col-12 mb-3">
+          <span class="flex-fill bd-highlight col-3 align-items-center">車種</span>
+            <%= f.text_field :car_model, class: "flex-fill rounded" %>
+        </div>
+        <div class="d-flex col-12 mb-3">
+          <span class="flex-fill bd-highlight col-3 align-items-center">状況詳細</span>
+            <%= f.text_area :situation, class: "flex-fill rounded" %>
+        </div>
+        <div class="align-right">※マップをクリックすると住所・緯度・経度が自動入力されます</span>
+        <div class="d-flex bd-highlight justify-content-center mb-2">
+            <%= f.submit '投稿', class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-<% end %>
-
-<h2>Map</h2>
-
-<div id='map'></div>
-
-<li>lat: <span ></span></li>
-<li>lng: <span id="lng"></span></li>
-<textarea id = "addressOutput"></textarea>
+</div>
 
   <style>
     #map {
-      height: 700px;
-      width: 800px;
+      height: 500px;
+      width: 100%;
     }
   </style>
 
   <script>
-    let marker = null;
+    var marker = null;
+
     function initMap(){
-      const map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 35.6803997, lng: 139.7690174},
-        zoom: 12
+
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 34.6937, lng: 135.5021},
+        zoom: 14
       });
 
       google.maps.event.addListener(map, 'click', event => clickListener(event, map));
@@ -42,16 +77,16 @@
 
     function clickListener(event, map) {
       //緯度・軽度の取得、住所への変換
-      const lat = event.latLng.lat();
-      const lng = event.latLng.lng();
-      document.getElementById('lat').textContent = event.latLng.lat();
-      document.getElementById('lng').textContent = event.latLng.lng();
-      const latLngInput = new google.maps.LatLng(lat, lng);
-      const geocoder = new google.maps.Geocoder();
+      var lat = event.latLng.lat();
+      var lng = event.latLng.lng();
+      document.getElementById('lat').value = event.latLng.lat();
+      document.getElementById('lng').value = event.latLng.lng();
+      var latLngInput = new google.maps.LatLng(lat, lng);
+      var geocoder = new google.maps.Geocoder();
       geocoder.geocode(
         { latLng: latLngInput },
         function(results, status) {
-          let address = "";
+          var address = "";
 
           if (status == google.maps.GeocoderStatus.OK) {
             address = results[0].formatted_address;
@@ -69,6 +104,7 @@
             alert("原因不明のエラーが発生しました。");
           }
           document.getElementById('addressOutput').value = address;
+          console.log("aO=", address);
         }
       );
 

@@ -4,5 +4,6 @@ class Road < ApplicationRecord
   belongs_to :user
   has_many :road_comments, dependent: :destroy
 
-
+  geocoded_by :address
+  after_validation :geocode
 end

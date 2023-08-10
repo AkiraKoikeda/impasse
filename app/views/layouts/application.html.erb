@@ -12,7 +12,12 @@
   </head>
 
   <body>
+    <body class="d-flex flex-column">
     <%= render 'layouts/header' %>
-    <%= yield %>
+    <div id="main">
+      <%= yield %>
+    </div>
+    <%= render 'layouts/footer' %>
+  </body>
   </body>
 </html>

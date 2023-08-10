@@ -1,10 +1,12 @@
+<div id ='lat' ></div>
+
 <h1>マップ</h1>
   <div id='map'></div>
 
   <style>
     #map {
-      height: 800px;
-      width: 800px;
+      height: 600px;
+      width: 100%;
     }
   </style>
 
@@ -12,12 +14,30 @@
     function initMap(){
       geocoder = new google.maps.Geocoder()
 
-         let map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 35.6803997, lng: 139.7690174},
+         var indexMap = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 34.6937, lng: 135.5021},
         zoom: 12,
       });
+
+      <% @roads.each do |road| %>
+        ( function() {
+          var markerLatLng = { lat: <%= road.lat %>, lng: <%= road.lng %>};
+          var indexMarker = new google.maps.Marker({
+            position: markerLatLng,
+            map: indexMap
+          });
+
+          var infowindow = new google.maps.InfoWindow({
+            position: markerLatLng,
+            content: "<a href='<%= road_url(road.id) %>' target='_blank'><%= road.address %></a>"
+          });
+          indexMarker.addListener('click', function() {
+            infowindow.open(indexMap, indexMarker);
+          });
+        })();
+      <% end %>
     }
 
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>
 

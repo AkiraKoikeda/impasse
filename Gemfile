@@ -63,3 +63,4 @@ gem 'gmaps4rails'
 
 gem 'geocoder'
 
+gem 'gon'

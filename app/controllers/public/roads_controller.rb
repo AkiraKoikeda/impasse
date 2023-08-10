@@ -23,6 +23,6 @@ class Public::RoadsController < ApplicationController
   private
 
   def road_params
-    params.require(:road).permit(:address, :car_model, :situation)
+    params.require(:road).permit(:address, :car_model, :situation, :lat, :lng, :star)
   end
 end
