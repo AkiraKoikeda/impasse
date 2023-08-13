@@ -1,0 +1,24 @@
+<%# adminの投稿リストとユーザー詳細、publicのマイページのテーブル部 %>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ユーザー名</th>
+        <th>住所</th>
+        <th>走行難度</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% roads.each do |road| %>
+      <tr>
+        <td><%= road.user.name %></td>
+        <td>
+          <%= link_to admin_road_path(road.id) do %>
+            <%= road.address %>
+          <% end %>
+        </td>
+        <td><%= render "public/roads/static_rate", road: road %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>

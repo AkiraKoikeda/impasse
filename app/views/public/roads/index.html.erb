@@ -29,7 +29,7 @@
 
           var infowindow = new google.maps.InfoWindow({
             position: markerLatLng,
-            content: "<a href='<%= road_url(road.id) %>' target='_blank'><%= road.address %></a>"
+            content: "<a href='<%= road_url(road.id) %>'><%= road.address %></a>"
           });
           indexMarker.addListener('click', function() {
             infowindow.open(indexMap, indexMarker);
