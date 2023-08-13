@@ -5,9 +5,15 @@
     <div class="col-lg-6 col-12">
       <h4 class="col-4">状況詳細編集</h4>
         <div id='map'></div>
+        <% if road.image.attached? %>
+          <%= image_tag road.image, size: "400×400" %>
+        <% else %>
+          <%= image_tag 'noimage-760x460', size: "400×400" %>
+        <% end %>
     </div>
     <div class="col-lg-6 col-12">
       <div class="col-12 mb-5"></div>
+      <div class="mb-3">※マップをクリックすると住所・緯度・経度が自動入力されます</span>
       <%= form_with model: road, local: true do |f| %>
         <div class="d-flex col-12 mb-3">
           <span class="flex-fill bd-highlight col-3 align-items-center">住所</span>
@@ -48,7 +54,10 @@
           <span class="flex-fill bd-highlight col-3 align-items-center">詳細説明</span>
             <%= f.text_area :situation, class: "flex-fill rounded" %>
         </div>
-        <div class="align-right">※マップをクリックすると住所・緯度・経度が自動入力されます</span>
+        <div class="d-flex col-12 mb-3">
+          <span class="flex-fill bd-highlight col-3 align-items-center">周辺画像</span>
+            <%= f.file_field :image, accept: "image/*" %>
+        </div>
         <div class="d-flex bd-highlight justify-content-center mb-2">
             <%= f.submit '更新', class: "btn btn-primary" %>
         </div>

@@ -3,6 +3,7 @@ class Public::RoadsController < ApplicationController
 
   def show
     @road = Road.find(params[:id])
+    @road_comment = RoadComment.new
   end
 
   def edit
@@ -15,6 +16,15 @@ class Public::RoadsController < ApplicationController
       redirect_to road_path(@road.id)
     else
       render :edit
+    end
+  end
+
+  def destroy
+    @road = Road.find(params[:id])
+    if @road.delete
+      redirect_to users_path
+    else
+      render :show
     end
   end
 

@@ -5,67 +5,134 @@
     <div class="col-lg-6 col-12">
       <h4 class="col-3">状況詳細</h4>
         <div id='map'></div>
-        <%= image_tag road.image, size: "400×400" %>
+        <% if road.image.attached? %>
+          <%= image_tag road.image, size: "400×400" %>
+        <% else %>
+          <%= image_tag 'noimage-760x460', size: "400×400" %>
+        <% end %>
     </div>
     <div class="col-lg-6 col-12">
       <div class="col-12 mb-5"></div>
-        <div class="d-flex col-12 mb-3">
-          <span class="flex-fill bd-highlight col-3">住所</span>
-            <%= road.address %>
-        </div>
-        <div class="d-flex col-12 mb-3">
-          <span class="flex-fill bd-highlight col-3">緯度</span>
-            <%= road.lat %>
-        </div>
-        <div class="d-flex col-12 mb-3">
-          <span class="flex-fill bd-highlight col-3">経度</span>
-            <%= road.lng %>
-        </div>
-        <div class="d-flex col-12 mb-3" id="star">
-          <span class="flex-fill bd-highlight col-3">走行難度</span>
-          <%= render "public/roads/static_rate", road: road %>
-        </div>
-        <div class="d-flex col-12 mb-3">
-          <span class="flex-fill bd-highlight col-3">車種</span>
-            <%= road.car_model %>
-        </div>
-        <div class="d-flex col-12 mb-3">
-          <span class="flex-fill bd-highlight col-3">詳細説明</span>
-            <%= road.situation %>
-        </div>
+      <div class="d-flex col-12 mb-3">
+        <span class="flex-fill bd-highlight col-3">住所</span>
+          <%= road.address %>
+      </div>
+      <div class="d-flex col-12 mb-3">
+        <span class="flex-fill bd-highlight col-3">緯度</span>
+          <%= road.lat %>
+      </div>
+      <div class="d-flex col-12 mb-3">
+        <span class="flex-fill bd-highlight col-3">経度</span>
+          <%= road.lng %>
+      </div>
+      <div class="d-flex col-12 mb-3" id="star">
+        <span class="flex-fill bd-highlight col-3">走行難度</span>
+        <%= render "public/roads/static_rate", road: road %>
+      </div>
+      <div class="d-flex col-12 mb-3">
+        <span class="flex-fill bd-highlight col-3">車種</span>
+          <%= road.car_model %>
+      </div>
+      <div class="d-flex col-12 mb-3">
+        <span class="flex-fill bd-highlight col-3">詳細説明</span>
+          <%= road.situation %>
+      </div>
 
-        <% if admin_signed_in? %>
-            <div class="d-flex bd-highlight justify-content-center mb-2">
-              <%= link_to '編集', edit_admin_road_path(road.id), class: "btn btn-success" %>
+      <% if admin_signed_in? %>
+          <div class="d-flex bd-highlight justify-content-center mb-2">
+            <%= link_to '編集', edit_admin_road_path(road.id), class: "btn btn-success" %>
+          </div>
+          <div class="d-flex bd-highlight justify-content-center mb-2">
+            <%= link_to '削除', admin_road_path(road.id), method: :delete, class: "btn btn-danger" %>
+          </div>
+      <% elsif road.user == current_user %>
+          <div class="d-flex bd-highlight justify-content-center mb-2">
+            <%= link_to '編集', edit_road_path(road.id), class: "btn btn-success" %>
+          </div>
+          <div class="d-flex bd-highlight justify-content-center mb-2">
+            <%= link_to '削除', road_path(road.id), method: :delete, data: { confirm: "この投稿を削除しますか？" }, class: "btn btn-danger" %>
+          </div>
+      <% else %>
+      <% end %>
+
+      <p class="col-12 mt-5"><%= road.road_comments.count %>件のコメント</p>
+      <div class="col-12">
+      <% if admin_signed_in? %>  <%# adminの時のコメントレイアウト%>
+        <% road.road_comments.each do |road_comment| %>
+        <div class="d-flex col-12 mb-3">
+          <div class="col-9 text-left mb-4">
+            <%= road_comment.comment %></br>
+            <%= road_comment.user.name %>
+            <%= road_comment.created_at.strftime('%Y/%m/%d') %>
+          </div>
+          <span class="col-3">
+            <%= link_to "削除", road_road_comment_path(road_comment.road, road_comment), method: :delete, data: { confirm: "このコメントを削除しますか？" }, class: "btn btn-danger" %>
+          </span>
+        </div>
+        <% end %>
+      <% else %>　<%# publicの時のコメントレイアウト%>
+        <% road.road_comments.each do |road_comment| %>
+          <% if road_comment.user != current_user %>
+            <div class="d-flex col-12 mb-3">
+              <div class="col-9 text-left mb-4">
+              <%= road_comment.comment %></br>
+              <%= road_comment.user.name %>
+              <%= road_comment.created_at.strftime('%Y/%m/%d') %>
             </div>
-        <% elsif road.user == current_user %>
-            <div class="d-flex bd-highlight justify-content-center mb-2">
-              <%= link_to '編集', edit_road_path(road.id), class: "btn btn-success" %>
             </div>
-        <% else %>
+          <% else %>
+            <div class="d-flex col-12 mb-3">
+              <span class="col-3 text-right">
+                <%= link_to "削除", road_road_comment_path(road_comment.road, road_comment), method: :delete, data: { confirm: "このコメントを削除しますか？" }, class: "btn btn-danger" %>
+              </span>
+                <div class="col-9 text-right mb-4">
+                  <%= road_comment.comment %></br>
+                  <%= road_comment.user.name %>
+                  <%= road_comment.created_at.strftime('%Y/%m/%d') %>
+                </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+
+        <% if user_signed_in? %>
+          <%= form_with model: [road, road_comment] do |f| %>
+            <div class="d-flex col-12 mb-3">
+              <%= f.text_area :comment, rows: '3', placeholder: "コメントをここに", class: "flex-fill rounded" %>
+            </div>
+            <div class="d-flex bd-highlight justify-content-center mb-2">
+              <%= f.submit "送信する", class: "btn btn-primary" %>
+            </div>
+          <% end %>
         <% end %>
 
-        <style>
-          #map {
-            height: 400px;
-            width: 100%;
-          }
-        </style>
-        <script>
-          function initMap(){
-            var showLatLng = { lat: <%= road.lat %>, lng: <%= road.lng %> };
-            var showMap = new google.maps.Map(document.getElementById('map'), {
-              center: showLatLng,
-              zoom: 14
-            });
+      </div>
+    </div>
+  </div>
+</div>
 
-            var showMarker = new google.maps.Marker({
-              position: showLatLng,
-              map: showMap
-            });
-          }
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>
+<style>
+  #map {
+    height: 400px;
+    width: 100%;
+  }
+</style>
+
+<script>
+  function initMap(){
+    var showLatLng = { lat: <%= road.lat %>, lng: <%= road.lng %> };
+    var showMap = new google.maps.Map(document.getElementById('map'), {
+      center: showLatLng,
+      zoom: 14
+    });
+
+    var showMarker = new google.maps.Marker({
+      position: showLatLng,
+      map: showMap
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>
 
 
 

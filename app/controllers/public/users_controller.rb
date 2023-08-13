@@ -2,7 +2,7 @@ class Public::UsersController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @roads = Road.all
+    @roads = current_user.roads
   end
 
   def edit

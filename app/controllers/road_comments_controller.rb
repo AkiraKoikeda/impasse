@@ -1,2 +1,0 @@
-class RoadCommentsController < ApplicationController
-end
