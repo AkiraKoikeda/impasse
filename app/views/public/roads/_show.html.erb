@@ -2,14 +2,16 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-6 col-12">
-      <h4 class="col-3">状況詳細</h4>
+    <div class="col-lg-6 col-12 mb-1">
+      <h4 class="col-3 title mt-3 text-center">状況詳細</h4>
         <div id='map'></div>
-        <% if road.image.attached? %>
-          <%= image_tag road.image, size: "400×400" %>
-        <% else %>
-          <%= image_tag 'noimage-760x460', size: "400×400" %>
-        <% end %>
+        <div class="mt-4">
+          <% if road.image.attached? %>
+            <%= image_tag road.image, size: "400×400" %>
+          <% else %>
+            <%= image_tag 'noimage-760x460', height: '400px', width: '100%' %>
+          <% end %>
+        </div>
     </div>
     <div class="col-lg-6 col-12">
       <div class="col-12 mb-5"></div>
@@ -40,22 +42,18 @@
 
       <% if admin_signed_in? %>
           <div class="d-flex bd-highlight justify-content-center mb-2">
-            <%= link_to '編集', edit_admin_road_path(road.id), class: "btn btn-success" %>
-          </div>
-          <div class="d-flex bd-highlight justify-content-center mb-2">
-            <%= link_to '削除', admin_road_path(road.id), method: :delete, class: "btn btn-danger" %>
+            <%= link_to '編集', edit_admin_road_path(road.id), class: "btn btn-success mr-3" %>
+            <%= link_to '削除', admin_road_path(road.id), method: :delete, class: "btn btn-danger ml-3" %>
           </div>
       <% elsif road.user == current_user %>
           <div class="d-flex bd-highlight justify-content-center mb-2">
-            <%= link_to '編集', edit_road_path(road.id), class: "btn btn-success" %>
-          </div>
-          <div class="d-flex bd-highlight justify-content-center mb-2">
-            <%= link_to '削除', road_path(road.id), method: :delete, data: { confirm: "この投稿を削除しますか？" }, class: "btn btn-danger" %>
+            <%= link_to '編集', edit_road_path(road.id), class: "btn btn-success mr-3" %>
+            <%= link_to '削除', road_path(road.id), method: :delete, data: { confirm: "この投稿を削除しますか？" }, class: "btn btn-danger ml-3" %>
           </div>
       <% else %>
       <% end %>
 
-      <p class="col-12 mt-5"><%= road.road_comments.count %>件のコメント</p>
+      <p class="col-12 mt-5 title text-center"><%= road.road_comments.count %>件のコメント</p>
       <div class="col-12">
       <% if admin_signed_in? %>  <%# adminの時のコメントレイアウト%>
         <% road.road_comments.each do |road_comment| %>

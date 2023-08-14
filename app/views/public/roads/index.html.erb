@@ -1,7 +1,13 @@
-<div id ='lat' ></div>
-
-<h1>マップ</h1>
-  <div id='map'></div>
+<div class="conteiner">
+  <div class="row justify-content-center">
+    <div class="col-12 mb-4">
+      <h4 class=" offset-1 col-1 title mt-3 text-center">マップ</h4>
+      <input type="text" id="keyword"><button id="search">検索</button>
+      <button id="clear">結果クリア</button>
+      <div id='map'></div>
+    </div>
+  </div>
+</div>
 
   <style>
     #map {
@@ -17,6 +23,33 @@
          var indexMap = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 34.6937, lng: 135.5021},
         zoom: 12,
+      });
+
+      document.getElementById('search').addEventListener('click', function(){
+        var place = document.getElementById('keyword').value;
+
+        geocoder.geocode({
+          address: place
+        }, function(results, status){
+          if (status == google.maps.GeocoderStatus.OK) {
+            var bounds = new google.maps.LatLngBounds();
+            for (var i in results) {
+              if(results[0].geometry) {
+                var latlng = results[0].geometry.location;
+                var address = results[0].formatted_address;
+                bounds.extend(latlng);
+              }
+            }
+          } else if (status == google.maps.GeocoderStatus.ZERO_RESULTS) {
+            alert("見つかりません");
+          } else {
+            console.log(status);
+            alert("エラー発生");
+          }
+        });
+      });
+      document.getElementById('clear').addEventListener('click', function() {
+        deleteMarkers();
       });
 
       <% @roads.each do |road| %>
@@ -37,6 +70,40 @@
         })();
       <% end %>
     }
+    
+    function setMarker(setplace) {
+        // 既にあるマーカーを削除
+        deleteMakers();
+
+        var iconUrl = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+          marker = new google.maps.Marker({
+            position: setplace,
+            map: map,
+            icon: iconUrl
+          });
+        }
+
+        //マーカーを削除する
+        function deleteMarkers() {
+          if(marker != null){
+            marker.setMap(null);
+          }
+          marker = null;
+        }
+
+        // マーカーへの吹き出しの追加
+        function setInfow(place, latlng, address) {
+          infoWindow = new google.maps.InfoWindow({
+          content: "<a href='http://www.google.com/search?q=" + place + "' target='_blank'>" + place + "</a><br><br>" + latlng + "<br><br>" + address + "<br><br><a href='http://www.google.com/search?q=" + place + "&tbm=isch' target='_blank'>画像検索 by google</a>"
+        });
+      }
+
+      // クリックイベント
+      function markerEvent() {
+        marker.addListener('click', function() {
+          infoWindow.open(map, marker);
+        });
+      }
 
   </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>

@@ -3,17 +3,19 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-6 col-12">
-      <h4 class="col-4">状況詳細編集</h4>
+      <h4 class="col-4 title mt-3 text-center">状況詳細編集</h4>
         <div id='map'></div>
-        <% if road.image.attached? %>
-          <%= image_tag road.image, size: "400×400" %>
-        <% else %>
-          <%= image_tag 'noimage-760x460', size: "400×400" %>
-        <% end %>
+        <div class="mt-4">
+          <% if road.image.attached? %>
+            <%= image_tag road.image, size: "400×400" %>
+          <% else %>
+            <%= image_tag 'noimage-760x460', height: '400px', width: '100%' %>
+          <% end %>
+        </div>
     </div>
     <div class="col-lg-6 col-12">
       <div class="col-12 mb-5"></div>
-      <div class="mb-3">※マップをクリックすると住所・緯度・経度が自動入力されます</span>
+      <div class="mb-3">※マップをクリックすると住所・緯度・経度が自動入力されます</div>
       <%= form_with model: road, local: true do |f| %>
         <div class="d-flex col-12 mb-3">
           <span class="flex-fill bd-highlight col-3 align-items-center">住所</span>

@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 mt-5">
+      <h4 class="col-3 title mt-3 mb-4 text-center">ユーザーリスト</h4>
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -16,11 +17,11 @@
             <td><%= user.id %></td>
             <td><%= user.name %></td>
             <% if user.is_deleted == true %>
-              <td>退会</td>
+              <td class= "text-danger">退会</td>
             <% else %>
-              <td>有効</td>
+              <td class= "text-success">有効</td>
             <% end %>
-            <td>
+            <td class="text-center">
               <%= link_to '詳細', admin_user_path(user.id), class: "btn btn-primary" %>
             </td>
           </tr>

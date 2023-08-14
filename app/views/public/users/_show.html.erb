@@ -1,10 +1,10 @@
-<h4 class="col-4 mb-4">ユーザー詳細</h4>
+<h4 class="col-3 title mt-3 mb-4 text-center">ユーザー詳細</h4>
 <div class="col-8"></div>
 <div class="col-lg-4 col-12">
-    <div class="col-5 align-items-left">ユーザー名</div>
-    <h5 class="col-12 text-center mb-3"><%= user.name %></h5>
-    <div class="col-5 align-items-left">e-mailアドレス</div>
-    <h5 class="col-12 text-center mb-3"><%= user.email %></h5>
+  <div class="col-5 align-items-left">ユーザー名</div>
+  <h5 class="col-12 text-center mb-4"><%= user.name %></h5>
+  <div class="col-5 align-items-left">e-mailアドレス</div>
+  <h5 class="col-12 text-center mb-5"><%= user.email %></h5>
 
   <% if admin_signed_in? %>
      <div class="col-5 align-items-left">会員ステータス</div>
@@ -21,6 +21,4 @@
         <%= link_to '編集', edit_users_path, class: "btn btn-success" %>
       <% end %>
   </div>
-
-
 </div>

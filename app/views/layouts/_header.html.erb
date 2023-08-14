@@ -5,9 +5,9 @@
         <div class="row">
            <nav class="navbar navbar-expand-lg navbar-light w-100 d-flex flex-wrap">
              <div class="col-md-2 col-12 justify-content-center pull-left flex-fill">
-                <%= link_to admin_root_path do %>
-                  <h3>impasse</h3>
-                <% end %>
+               <div class="col-md-2 col-12 justify-content-center pull-left flex-fill">
+                <h3><%= link_to 'impasse', admin_root_path, class: "text-white link" %></h3>
+               </div>
              </div>
              <div class="col-lg-9 col-md-10 col-12 offset-lg-1 offset-0 flex-fill justify-content-end">
                <button class="navbar-toggler offset-10 mb-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,13 +17,13 @@
                  <ul class="navbar-nav col-12 justify-content-end">
                    <div class="d-flex flex-wrap col-md-11 justify-content-end text-center">
                      <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "ユーザーリスト", admin_users_path %>
+                       <%= link_to "ユーザーリスト", admin_users_path, class: "text-white" %>
                      </p>
                      <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "投稿リスト", admin_roads_path %>
+                       <%= link_to "投稿リスト", admin_roads_path, class: "text-white" %>
                      </p>
                      <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+                       <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "text-white" %>
                      </p>
                    </div>
                  </ul>
@@ -37,9 +37,7 @@
         <div class="row">
            <nav class="navbar navbar-expand-lg navbar-light w-100 d-flex flex-wrap">
              <div class="col-md-2 col-12 justify-content-center pull-left flex-fill">
-                <%= link_to admin_root_path do %>
-                  <h3>impasse</h3>
-                <% end %>
+                <h3><%= link_to 'impasse', admin_root_path, class: "text-white link" %></h3>
              </div>
              <div class="col-lg-9 col-md-10 col-12 offset-lg-1 offset-0 flex-fill justify-content-end">
                <button class="navbar-toggler offset-10 mb-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,10 +47,10 @@
                  <ul class="navbar-nav col-12 justify-content-end">
                    <div class="d-flex flex-wrap col-md-11 justify-content-end text-center">
                      <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "About",  "/homes/about" %>
+                       <%= link_to "About",  "/homes/about", class: "text-white" %>
                      </p>
                      <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+                       <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "text-white" %>
                      </p>
                    </div>
                  </ul>
@@ -67,9 +65,7 @@
         <div class="row">
            <nav class="navbar navbar-expand-lg navbar-light w-100 d-flex flex-wrap">
              <div class="col-md-2 col-12 justify-content-center pull-left flex-fill">
-                <%= link_to root_path do %>
-                  <h3>impasse</h3>
-                <% end %>
+                <h3><%= link_to 'impasse', root_path, class: "text-white link" %></h3>
              </div>
              <div class="col-lg-9 col-md-10 col-12 offset-lg-1 offset-0 flex-fill justify-content-end">
                <button class="navbar-toggler offset-10 mb-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,16 +75,16 @@
                  <ul class="navbar-nav col-12 justify-content-end">
                    <div class="d-flex flex-wrap col-md-11 justify-content-end text-center">
                      <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "地点登録", new_road_path %>
+                       <%= link_to "地点登録", new_road_path, class: "text-white" %>
                      </p>
                      <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "About",  "/homes/about" %>
+                       <%= link_to "About",  "/homes/about", class: "text-white" %>
                      </p>
                      <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "マイページ", users_path %>
+                       <%= link_to "マイページ", users_path, class: "text-white" %>
                      </p>
                      <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+                       <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-white" %>
                      </p>
                    </div>
                  </ul>
@@ -102,9 +98,7 @@
         <div class="row">
            <nav class="navbar navbar-expand-lg navbar-light w-100 d-flex flex-wrap">
              <div class="col-md-2 col-12 justify-content-center pull-left flex-fill">
-                <%= link_to root_path do %>
-                  <h3>impasse</h3>
-                <% end %>
+                 <h3><%= link_to 'impasse', root_path, class: "text-white link" %></h3>
              </div>
              <div class="col-lg-9 col-md-10 col-12 offset-lg-1 offset-0 flex-fill justify-content-end">
                <button class="navbar-toggler offset-10 mb-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,19 +108,19 @@
                  <ul class="navbar-nav col-12 justify-content-end">
                    <div class="d-flex flex-wrap col-md-11 justify-content-end text-center">
                      <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to new_user_session_path do %>
+                       <%= link_to new_user_session_path, class: "text-white" do %>
                           地点登録</br>
                           (ログイン要)
                        <% end %>
                      </p>
                      <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "About", "/homes/about" %>
+                       <%= link_to "About", "/homes/about", class: "text-white" %>
                      </p>
                      <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "新規会員登録", new_user_registration_path %>
+                       <%= link_to "新規会員登録", new_user_registration_path, class: "text-white" %>
                      </p>
                      <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "ログイン", new_user_session_path %>
+                       <%= link_to "ログイン", new_user_session_path, class: "text-white" %>
                      </p>
                    </div>
                  </ul>
