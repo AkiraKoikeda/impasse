@@ -64,7 +64,10 @@ ActiveRecord::Schema.define(version: 2023_08_05_025532) do
     t.integer "user_id"
     t.string "address"
     t.string "car_model"
+    t.float "lat"
+    t.float "lng"
     t.text "situation"
+    t.string "star"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

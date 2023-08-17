@@ -1,0 +1,17 @@
+<div id="star_<%= road.id %>"></div>
+<script>
+  $(document).on('turbolinks:load', function() {
+    let elem = document.querySelector('#star_<%= road.id %>');
+    if (elem == null) return;
+
+    elem.innerHTML = "";
+    let opt = {
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: false,
+      score: "<%= road.star %>",
+      readOnly: true,
+    };
+    raty(elem, opt);
+  });
+</script>

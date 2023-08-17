@@ -1,4 +1,13 @@
-<h2>本当に退会しますか？</h2>
-
-<%= link_to "退会する", withdrawal_users_path, method: :patch, data: { confirm: "本当に退会しますか？"} %>
-<%= link_to "退会しない", users_path %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 justify-content-center">
+      <div class="col-12 mt-5 mb-5"></div>
+      <div class="col-12 mt-5 mb-5"></div>
+      <h2 class="col-12 text-center mt-5 mb-5">本当に退会しますか？</h2>
+      <p class="col-12 text-center mt-5 mb-5">
+        <%= link_to "退会する", withdrawal_users_path, method: :patch, data: { confirm: "本当に退会しますか？"}, class: "btn btn-danger mr-5" %>
+        <%= link_to "退会しない", users_path, class: "btn btn-primary ml-5" %>
+      </p>
+    </div>
+  </div>
+</div>
