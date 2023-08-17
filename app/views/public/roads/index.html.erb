@@ -1,10 +1,16 @@
 <div class="conteiner">
   <div class="row justify-content-center">
-    <div class="col-12 mb-4">
-      <h4 class=" offset-1 col-1 title mt-3 text-center">マップ</h4>
+    <div class="col-lg-7 mb-4">
+      <h4 class=" offset-1 col-lg-2 col-11 title mt-3 text-center">マップ</h4>
       <input id="address" type="textbox"　value="Osaka">
       <input type="button" value="検索" onclick="codeAddress()">
       <div id='map'></div>
+    </div>
+    <div class="col-5 mb-4">
+      <div class="col-12 mb-5"></div>
+      <input id="postAddress" type="textbox">
+      <p id="id"><p>
+      <input id='car_model' type="textbox">
     </div>
   </div>
 </div>
@@ -18,9 +24,8 @@
 
 
   <script>
-
     let indexMap
-    
+
     function initMap(){
       geocoder = new google.maps.Geocoder()
 
@@ -42,14 +47,16 @@
             content: "<a href='<%= road_url(road.id) %>'><%= road.address %></a>"
           });
           indexMarker.addListener('click', function() {
-            infowindow.open(indexMap, indexMarker);
+            document.getElementById('postAddress').value = "<%= road.address %>";
+            document.getElementById('car_model').value = "<%= road.car_model %>";
+            document.getElementById('id').textContent = "id";
+            console.log(postAddress);
           });
         })();
       <% end %>
     }
 
     function codeAddress(){
-
       let inputAddress = document.getElementById('address').value;
       geocoder.geocode({ 'address': inputAddress }, function(results, status){
         if(status == 'OK'){
