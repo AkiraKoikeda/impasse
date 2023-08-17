@@ -1,0 +1,74 @@
+<div class="conteiner">
+  <div class="row justify-content-center">
+    <div class="col-lg-7 mb-4">
+      <h4 class=" offset-1 col-lg-2 col-11 title mt-3 text-center">マップ</h4>
+      <input id="address" type="textbox"　value="Osaka">
+      <input type="button" value="検索" onclick="codeAddress()">
+      <div id='map'></div>
+    </div>
+    <div class="col-5 mb-4">
+      <div class="col-12 mb-5"></div>
+      <input id="postAddress" type="textbox">
+      <p id="id"><p>
+      <input id='car_model' type="textbox">
+    </div>
+  </div>
+</div>
+
+  <style>
+    #map {
+      height: 600px;
+      width: 100%;
+    }
+  </style>
+
+
+  <script>
+    let indexMap
+
+    function initMap(){
+      geocoder = new google.maps.Geocoder()
+
+      indexMap = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 34.6937, lng: 135.5021},
+        zoom: 12,
+      });
+
+      <% @roads.each do |road| %>
+        ( function() {
+          var markerLatLng = { lat: <%= road.lat %>, lng: <%= road.lng %>};
+          var indexMarker = new google.maps.Marker({
+            position: markerLatLng,
+            map: indexMap
+          });
+
+          var infowindow = new google.maps.InfoWindow({
+            position: markerLatLng,
+            content: "<a href='<%= road_url(road.id) %>'><%= road.address %></a>"
+          });
+          indexMarker.addListener('click', function() {
+            document.getElementById('postAddress').value = "<%= road.address %>";
+            document.getElementById('car_model').value = "<%= road.car_model %>";
+            document.getElementById('id').textContent = "id";
+            console.log(postAddress);
+          });
+        })();
+      <% end %>
+    }
+
+    function codeAddress(){
+      let inputAddress = document.getElementById('address').value;
+      geocoder.geocode({ 'address': inputAddress }, function(results, status){
+        if(status == 'OK'){
+          let newLat = results[0].geometry.location.lat()
+          let newLng = results[0].geometry.location.lng()
+          const newCenter = new google.maps.LatLng(newLat, newLng);
+          indexMap.setCenter(newCenter);
+        } else {
+          alert('該当する結果がありませんでした' + status);
+        }
+      });
+    }
+
+  </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['SECRET_KEY'] %>&callback=initMap"></script>
