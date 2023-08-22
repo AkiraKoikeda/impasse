@@ -11,7 +11,7 @@
     <tbody>
       <% roads.each do |road| %>
       <tr>
-        <td><%= road.user.name %></td>
+        <td style="width: 18%"><%= road.user.name %></td>
         <td>
           <% if admin_signed_in? %>
             <%= link_to admin_road_path(road.id) do %>
@@ -23,7 +23,7 @@
             <% end %>
           <% end %>
         </td>
-        <td><%= render "public/roads/static_rate", road: road %></td>
+        <td style="width: 25%"><%= render "public/roads/static_rate", road: road %></td>
       </tr>
       <% end %>
     </tbody>
