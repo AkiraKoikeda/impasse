@@ -92,7 +92,7 @@
           <% end %>
         <% end %>
       <% end %>
-      
+
       <% if user_signed_in? %>
         <%= form_with model: [road, road_comment] do |f| %>
           <div class="d-flex col-12 mb-3">
@@ -116,14 +116,16 @@
 </style>
 
 <script>
+  var showMap
+
   function initMap(){
     var showLatLng = { lat: <%= road.lat %>, lng: <%= road.lng %> };
-    var showMap = new google.maps.Map(document.getElementById('map'), {
+    showMap = new google.maps.Map(document.getElementById('map'), {
       center: showLatLng,
       zoom: 14
     });
 
-    var showMarker = new google.maps.Marker({
+    let showMarker = new google.maps.Marker({
       position: showLatLng,
       map: showMap
     });

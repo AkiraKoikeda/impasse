@@ -8,9 +8,21 @@
     </div>
     <div class="col-5 mb-4">
       <div class="col-12 mb-5"></div>
-      <input id="postAddress" type="textbox">
-      <p id="id"><p>
-      <input id='car_model' type="textbox">
+      <div class="col-12 mb-3">
+      <h5>登録された地点</h5>
+        <div id="postAddress"></div>
+      </div>
+      <div class="col-12 mb-3">
+      <h5>車種</h5>
+        <p id='car_model'></p>
+      </div>
+      <div class="col-12 mb-3">
+      <h5>走行難度</h5>
+        <p id='#rate'></p>
+      </div>
+      <div class="col-12 mb-3 justify-content-center">
+        <p id="detail"><p>
+      </div>
     </div>
   </div>
 </div>
@@ -24,7 +36,7 @@
 
 
   <script>
-    let indexMap
+    var indexMap
 
     function initMap(){
       geocoder = new google.maps.Geocoder()
@@ -42,15 +54,25 @@
             map: indexMap
           });
 
-          var infowindow = new google.maps.InfoWindow({
-            position: markerLatLng,
-            content: "<a href='<%= road_url(road.id) %>'><%= road.address %></a>"
-          });
           indexMarker.addListener('click', function() {
-            document.getElementById('postAddress').value = "<%= road.address %>";
-            document.getElementById('car_model').value = "<%= road.car_model %>";
-            document.getElementById('id').textContent = "id";
-            console.log(postAddress);
+            document.getElementById('postAddress').textContent = "<%= road.address %>";
+            document.getElementById('car_model').textContent = "<%= road.car_model %>";
+            document.getElementById('detail').innerHTML = `<%= link_to "詳細", road_path(road.id), class: "btn btn-primary" %>`;
+            document.getElementById('rate').innerHTML =
+            $(document).on('turbolinks:load', function() {
+              let elem = document.querySelector('#rate');
+              if (elem == null) return;
+
+              elem.innerHTML = "";
+              let opt = {
+                starOn: "<%= asset_path('star-on.png') %>",
+                starOff: "<%= asset_path('star-off.png') %>",
+                starHalf: false,
+                score: "<%= road.star %>",
+                readOnly: true,
+              };
+              raty(elem, opt);
+            });
           });
         })();
       <% end %>

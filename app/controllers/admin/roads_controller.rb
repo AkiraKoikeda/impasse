@@ -3,6 +3,7 @@ class Admin::RoadsController < ApplicationController
 
   def index
     @roads = Road.all
+    @road_comment = RoadComment.new
   end
 
   def show
