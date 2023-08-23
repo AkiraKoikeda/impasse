@@ -1,28 +1,28 @@
 <div class="conteiner">
-  <div class="row justify-content-center">
-    <div class="col-lg-7 mb-4">
-      <h4 class=" offset-1 col-lg-2 col-11 title mt-3 text-center">マップ</h4>
-      <input id="address" type="textbox"　value="Osaka">
-      <input type="button" value="検索" onclick="codeAddress()">
-      <div id='map'></div>
+  <div class="row">
+    <h4 class=" offset-1 col-2 title mt-3 mb-3 text-center">マップ</h4>
+    <div class="col-lg-10 justify-content-center"></div>
+      <div class="col-lg-6 d-flex bd-highlight ml-2">
+        <input id="address" type="textbox"　value="Osaka" class= "form-control flex-fill">
+        <input type="button" value="検索" onclick="codeAddress()">
+      </div>
+    <div class="col-lg-8 mb-4">
+      <div id='map' class="ml-2 mr-2"></div>
     </div>
-    <div class="col-5 mb-4">
-      <div class="col-12 mb-5"></div>
+    <div class="col-lg-4 mb-4">
       <div class="col-12 mb-3">
       <h5>登録された地点</h5>
-        <div id="postAddress"></div>
-      </div>
-      <div class="col-12 mb-3">
-      <h5>車種</h5>
-        <p id='car_model'></p>
+        <i class="fa-solid fa-road"></i><span id="postAddress"></span>
       </div>
       <div class="col-12 mb-3">
       <h5>走行難度</h5>
-        <p id='#rate'></p>
       </div>
-      <div class="col-12 mb-3 justify-content-center">
-        <p id="detail"><p>
+      <div class="col-12 mb-3">
+      <h5>周辺写真</h5>
+      <div id="photo" class= "col-12 text-center"></div>
       </div>
+
+        <p id="detail" class= "col-12 mb-3 text-center"><p>
     </div>
   </div>
 </div>
@@ -56,23 +56,12 @@
 
           indexMarker.addListener('click', function() {
             document.getElementById('postAddress').textContent = "<%= road.address %>";
-            document.getElementById('car_model').textContent = "<%= road.car_model %>";
+             <% if road.image.attached? %>
+               document.getElementById('photo').innerHTML = `<%= image_tag road.image, height: '300px', width: '500px' %>`;
+             <% else %>
+               document.getElementById('photo').innerHTML = `<%= image_tag 'noimage-760x460', height: '300px', width: '100%' %>`;
+             <% end %>
             document.getElementById('detail').innerHTML = `<%= link_to "詳細", road_path(road.id), class: "btn btn-primary" %>`;
-            document.getElementById('rate').innerHTML =
-            $(document).on('turbolinks:load', function() {
-              let elem = document.querySelector('#rate');
-              if (elem == null) return;
-
-              elem.innerHTML = "";
-              let opt = {
-                starOn: "<%= asset_path('star-on.png') %>",
-                starOff: "<%= asset_path('star-off.png') %>",
-                starHalf: false,
-                score: "<%= road.star %>",
-                readOnly: true,
-              };
-              raty(elem, opt);
-            });
           });
         })();
       <% end %>
