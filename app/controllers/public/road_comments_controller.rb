@@ -3,8 +3,12 @@ class Public::RoadCommentsController < ApplicationController
     road = Road.find(params[:road_id])
     comment = current_user.road_comments.new(road_comment_params)
     comment.road_id = road.id
-    comment.save
-    redirect_to road_path(road)
+    if comment.save
+      redirect_to road_path(road)
+    else
+      flash[:notice] = "正しい情報を入力してください"
+      redirect_to road_path()
+    end
   end
 
   def destroy

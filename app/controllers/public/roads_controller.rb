@@ -13,8 +13,10 @@ class Public::RoadsController < ApplicationController
   def update
     @road = Road.find(params[:id])
     if @road.update(road_params)
+      flash[:notice] = "投稿に成功しました"
       redirect_to road_path(@road.id)
     else
+      flash[:notice] = "正しい情報を入力してください"
       render :edit
     end
   end
@@ -36,8 +38,10 @@ class Public::RoadsController < ApplicationController
     @road = Road.new(road_params)
     @road.user_id = current_user.id
     if @road.save
+      flash[:notice] = "投稿に成功しました"
       redirect_to road_path(@road.id)
     else
+      flash[:notice] = "正しい情報を入力してください"
       render :new
     end
   end
