@@ -47,6 +47,20 @@ footer{
   text-decoration: none !important;
 }
 
+// フラッシュメッセージ設定
+#flash-notifications{
+  color: white;
+
+  .notice {
+    background-color: #3cb371;
+    padding: 12px 20px;
+  }
+
+  .alert {
+    background-color: #fa8072;
+  }
+}
+
 .field_with_errors {
   display: flex;
   width: 408px;

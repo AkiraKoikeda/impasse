@@ -16,7 +16,7 @@
     <div class="col-lg-6 col-12">
       <div class="col-12 mb-5"></div>
       <div class="mb-3">※マップをクリックすると住所・緯度・経度が自動入力されます</div>
-      <%= form_with model: road, local: true do |f| %>
+      <%= form_with model: road do |f| %>
         <div class="d-flex col-12 mb-3">
           <span class="flex-fill bd-highlight col-3 align-items-center">住所</span>
             <%= f.text_field :address, id: "addressOutput", class: "flex-fill rounded", placeholder: "自動入力" %>
