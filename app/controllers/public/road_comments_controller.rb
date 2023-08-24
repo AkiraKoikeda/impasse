@@ -6,8 +6,8 @@ class Public::RoadCommentsController < ApplicationController
     if comment.save
       redirect_to road_path(road)
     else
-      flash[:notice] = "正しい情報を入力してください"
-      redirect_to road_path()
+      flash[:alert] = "正しい情報を入力してください"
+      redirect_to road_path(road)
     end
   end
 

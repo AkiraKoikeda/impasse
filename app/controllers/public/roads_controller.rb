@@ -16,7 +16,7 @@ class Public::RoadsController < ApplicationController
       flash[:notice] = "投稿に成功しました"
       redirect_to road_path(@road.id)
     else
-      flash[:notice] = "正しい情報を入力してください"
+      flash[:alert] = "正しい情報を入力してください"
       render :edit
     end
   end
@@ -41,7 +41,7 @@ class Public::RoadsController < ApplicationController
       flash[:notice] = "投稿に成功しました"
       redirect_to road_path(@road.id)
     else
-      flash[:notice] = "正しい情報を入力してください"
+      flash[:alert] = "正しい情報を入力してください"
       render :new
     end
   end

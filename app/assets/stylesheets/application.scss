@@ -22,14 +22,18 @@
 }
 
 header{
-  background-color: #008000;
+  background-color: gray;
   border-bottom: 20px #c0c0c0;
   color: white;
 }
 
+.navbar-light .navbar-toggler-icon {
+    background-image: white;
+}
+
 footer{
   text-align: center;
-  background-color: #008000;
+  background-color: gray;
   color: white;
   bottom: 0;
   position: absolute;
@@ -39,7 +43,7 @@ footer{
 }
 
 .title{
-  background-color: #93ffab;
+  background-color: silver;
   border-radius: 20px;
 }
 
