@@ -8,6 +8,7 @@ class Admin::RoadsController < ApplicationController
 
   def show
     @road = Road.find(params[:id])
+    @road_comment = RoadComment.new
   end
 
   def destroy
