@@ -7,16 +7,17 @@
         <div id='map'></div>
         <div class="mt-4">
           <% if road.image.attached? %>
-            <%= image_tag road.image, size: "400×400" %>
+            <%= image_tag road.image, height: '400px', width: '100%' %>
           <% else %>
-            <%= image_tag 'noimage-760x460', height: '400px', width: '100%' %>
+            <%= image_tag 'noimage-760x460.png', height: '400px', width: '100%' %>
           <% end %>
         </div>
     </div>
     <div class="col-lg-6 col-12">
       <div class="col-12 mb-5"></div>
       <div class="mb-3">※マップをクリックすると住所・緯度・経度が自動入力されます</div>
-      <%= form_with model: road, local: true do |f| %>
+      <% url = admin_signed_in? ? admin_road_path(road) : road_path(road) %>
+      <%= form_with model: road, url: url do |f| %>
         <div class="d-flex col-12 mb-3">
           <span class="flex-fill bd-highlight col-3 align-items-center">住所</span>
             <%= f.text_field :address, id: "addressOutput", class: "flex-fill rounded", placeholder: "自動入力" %>
@@ -64,6 +65,9 @@
             <%= f.submit '更新', class: "btn btn-primary" %>
         </div>
       <% end %>
+      <div class="col-10 offset-2 mt-5">
+        <%= render 'public/roads/explanation' %>
+      </div>
     </div>
   </div>
 </div>
@@ -74,15 +78,17 @@
   }
 </style>
 <script>
-  var marker = null;
+  //マーカーが正常に表示されない為、仮でvar使用
+  var editMarker = null;
+
   function initMap(){
-    var LatLng = { lat: <%= road.lat %>, lng: <%= road.lng %> };
-    var map = new google.maps.Map(document.getElementById('map'), {
+    let LatLng = { lat: <%= road.lat %>, lng: <%= road.lng %> };
+    let map = new google.maps.Map(document.getElementById('map'), {
       center: LatLng,
       zoom: 14
     });
 
-    var marker = new google.maps.Marker({
+    let editMarker = new google.maps.Marker({
       position: LatLng,
       map: map
     });
@@ -91,16 +97,16 @@
 
     function clickListener(event, map) {
       //緯度・軽度の取得、住所への変換
-      var lat = event.latLng.lat();
-      var lng = event.latLng.lng();
+      let lat = event.latLng.lat();
+      let lng = event.latLng.lng();
       document.getElementById('lat').value = event.latLng.lat();
       document.getElementById('lng').value = event.latLng.lng();
-      var latLngInput = new google.maps.LatLng(lat, lng);
-      var geocoder = new google.maps.Geocoder();
+      let latLngInput = new google.maps.LatLng(lat, lng);
+      let geocoder = new google.maps.Geocoder();
       geocoder.geocode(
         { latLng: latLngInput },
         function(results, status) {
-          var address = "";
+          let address = "";
 
           if (status == google.maps.GeocoderStatus.OK) {
             address = results[0].formatted_address;
@@ -122,10 +128,10 @@
       );
 
       //マーカーのリセット
-      if(marker){
-        marker.setMap(null);
+      if(editMarker){
+        editMarker.setMap(null);
       }
-      marker = new google.maps.Marker({
+      editMarker = new google.maps.Marker({
         position: {lat, lng},
         map
       });
