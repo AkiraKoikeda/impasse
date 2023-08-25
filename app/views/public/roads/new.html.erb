@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-6 col-12 mb-5">
-      <%= flash[:notice] %> 
+      <%= flash[:notice] %>
       <h4 class="col-3 title mt-3 text-center">地点登録</h4>
         <div id='map'></div>
     </div>
@@ -57,6 +57,9 @@
             <%= f.submit '投稿', class: "btn btn-primary" %>
         </div>
       <% end %>
+      <div class="col-10 offset-2 mt-5">
+        <%= render 'public/roads/explanation' %>
+      </div>
     </div>
   </div>
 </div>
@@ -69,6 +72,7 @@
   </style>
 
   <script>
+    //マーカーが正常に表示されない為、仮でvar使用
     var marker = null;
 
     function initMap(){
@@ -83,16 +87,16 @@
 
     function clickListener(event, map) {
       //緯度・軽度の取得、住所への変換
-      var lat = event.latLng.lat();
-      var lng = event.latLng.lng();
+      let lat = event.latLng.lat();
+      let lng = event.latLng.lng();
       document.getElementById('lat').value = event.latLng.lat();
       document.getElementById('lng').value = event.latLng.lng();
-      var latLngInput = new google.maps.LatLng(lat, lng);
-      var geocoder = new google.maps.Geocoder();
+      let latLngInput = new google.maps.LatLng(lat, lng);
+      let geocoder = new google.maps.Geocoder();
       geocoder.geocode(
         { latLng: latLngInput },
         function(results, status) {
-          var address = "";
+          let address = "";
 
           if (status == google.maps.GeocoderStatus.OK) {
             address = results[0].formatted_address;
@@ -116,7 +120,6 @@
 
       //マーカーのリセット
       if(marker){
-        console.log("marker=", marker);
         marker.setMap(null);
       }
       marker = new google.maps.Marker({
