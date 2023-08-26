@@ -18,14 +18,14 @@
       <h5>走行難度</h5>
         <div id="rate">
         <% 5.times do %>
-          <%= image_tag 'star-off.png' %>
+          <%= image_tag asset_path('star-off.png') %>
         <% end %>
         </div>
       </div>
       <div class="col-12 mb-3">
       <h5>周辺写真</h5>
       <div id="photo" class= "col-12 text-center">
-        <%= image_tag 'noimage-760x460.png', height: '300px', width: '90%' %>
+        <%= image_tag asset_path('noimage-760x460.png'), height: '300px', width: '90%' %>
       </div>
       </div>
 
@@ -85,7 +85,7 @@
              <% if road.image.attached? %>
                document.getElementById('photo').innerHTML = `<%= image_tag road.image, height: '300px', width: '90%' %>`;
              <% else %>
-               document.getElementById('photo').innerHTML = `<%= image_tag 'noimage-760x460.png', height: '300px', width: '90%' %>`;
+               document.getElementById('photo').innerHTML = `<%= image_tag asset_path('noimage-760x460.png'), height: '300px', width: '90%' %>`;
              <% end %>
             document.getElementById('detail').innerHTML = `<%= link_to "詳細", road_path(road.id), class: "btn btn-primary" %>`;
           });
