@@ -1,149 +1,114 @@
-<header>
+<header class="shadow-sm">
   <% if admin_signed_in? %>
     <% if request.fullpath.include? "/admin" %><!--adminでログインしていてadmin画面にいる時-->
-      <div class="container-fluid">
-        <div class="row">
-           <nav class="navbar navbar-expand-lg navbar-light w-100 d-flex flex-wrap">
-             <div class="col-md-2 col-12 justify-content-center pull-left flex-fill">
-               <div class="col-md-2 col-12 justify-content-center pull-left flex-fill">
-                <h3>
-                  <%= link_to admin_root_path do %>
-                    <%= image_tag asset_path('impasse.png'), height: '100px', width: '150px' %>
-                  <% end %>
-                </h3>
-               </div>
-             </div>
-             <div class="col-lg-9 col-md-10 col-12 offset-lg-1 offset-0 flex-fill justify-content-end">
-               <button class="navbar-toggler offset-10 mb-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" ></span>
-              </button>
-               <div class="row collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                 <ul class="navbar-nav col-12 justify-content-end">
-                   <div class="d-flex flex-wrap col-md-11 justify-content-end text-center">
-                     <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "ユーザーリスト", admin_users_path, class: "text-white" %>
-                     </p>
-                     <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "投稿リスト", admin_roads_path, class: "text-white" %>
-                     </p>
-                     <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "text-white" %>
-                     </p>
-                   </div>
-                 </ul>
-               </div>
-             </div>
-           </nav>
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <span class="navbar-brand p-3">
+            <%= link_to admin_root_path do %>
+              <%= image_tag asset_path('impasse.png'), height: '100px', width: '150px' %>
+            <% end %>
+          </span>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <%= link_to "ユーザーリスト", admin_users_path, class: "text-white" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "投稿リスト", admin_roads_path, class: "text-white" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "text-white" %>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </nav>
     <% else %><!--adminでログインしていてadminにいない(ユーザー画面にいる)時-->
-    <div class="container-fluid">
-        <div class="row">
-           <nav class="navbar navbar-expand-lg navbar-light w-100 d-flex flex-wrap">
-             <div class="col-md-2 col-12 justify-content-center pull-left flex-fill">
-                <h3>
-                  <%= link_to admin_root_path do %>
-                    <%= image_tag asset_path('impasse.png'), height: '100px', width: '150px' %>
-                  <% end %>
-                </h3>
-             </div>
-             <div class="col-lg-9 col-md-10 col-12 offset-lg-1 offset-0 flex-fill justify-content-end">
-               <button class="navbar-toggler offset-10 mb-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" ></span>
-              </button>
-               <div class="row collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                 <ul class="navbar-nav col-12 justify-content-end">
-                   <div class="d-flex flex-wrap col-md-11 justify-content-end text-center">
-                     <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "About",  "/homes/about", class: "text-white" %>
-                     </p>
-                     <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "text-white" %>
-                     </p>
-                   </div>
-                 </ul>
-               </div>
-             </div>
-           </nav>
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <span class="navbar-brand p-3">
+            <%= link_to admin_root_path do %>
+              <%= image_tag asset_path('impasse.png'), height: '100px', width: '150px' %>
+            <% end %>
+          </span>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <%= link_to "About",  "/homes/about", class: "text-white" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "text-white" %>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </nav>
     <% end %>
   <% elsif user_signed_in? %><!--ユーザーがログインしていている時-->
-    <div class="container-fluid">
-        <div class="row">
-           <nav class="navbar navbar-expand-lg navbar-light w-100 d-flex flex-wrap">
-             <div class="col-md-2 col-12 justify-content-center pull-left flex-fill">
-                <h3>
-                  <%= link_to root_path do %>
-                    <%= image_tag asset_path('impasse.png'), height: '100px', width: '150px' %>
-                  <% end %>
-                </h3>
-             </div>
-             <div class="col-lg-9 col-md-10 col-12 offset-lg-1 offset-0 flex-fill justify-content-end">
-               <button class="navbar-toggler offset-10 mb-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" ></span>
-              </button>
-               <div class="row collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                 <ul class="navbar-nav col-12 justify-content-end">
-                   <div class="d-flex flex-wrap col-md-11 justify-content-end text-center">
-                     <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "地点登録", new_road_path, class: "text-white" %>
-                     </p>
-                     <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "About",  "/homes/about", class: "text-white" %>
-                     </p>
-                     <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "マイページ", users_path, class: "text-white" %>
-                     </p>
-                     <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-white" %>
-                     </p>
-                   </div>
-                 </ul>
-               </div>
-             </div>
-           </nav>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <span class="navbar-brand p-3">
+          <%= link_to root_path do %>
+            <%= image_tag asset_path('impasse.png'), height: '100px', width: '150px' %>
+          <% end %>
+        </span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <%= link_to "地点登録", new_road_path, class: "text-white" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "About",  "/homes/about", class: "text-white" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "マイページ", users_path, class: "text-white" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-white" %>
+            </li>
+          </ul>
         </div>
       </div>
+    </nav>
   <% else %><!--adminもユーザーもログインしていない時-->
-  <div class="container-fluid">
-        <div class="row">
-           <nav class="navbar navbar-expand-lg navbar-light w-100 d-flex flex-wrap">
-             <div class="col-md-2 col-12 justify-content-center pull-left flex-fill">
-                 <h3>
-                  <%= link_to root_path do %>
-                    <%= image_tag asset_path('impasse.png'), height: '100px', width: '150px' %>
-                  <% end %>
-                 </h3>
-             </div>
-             <div class="col-lg-9 col-md-10 col-12 offset-lg-1 offset-0 flex-fill justify-content-end">
-               <button class="navbar-toggler offset-10 mb-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" ></span>
-              </button>
-               <div class="row collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                 <ul class="navbar-nav col-12 justify-content-end">
-                   <div class="d-flex flex-wrap col-md-11 justify-content-end text-center">
-                     <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to new_user_session_path, class: "text-white" do %>
-                          地点登録</br>
-                          (ログイン要)
-                       <% end %>
-                     </p>
-                     <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "About", "/homes/about", class: "text-white" %>
-                     </p>
-                     <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "新規会員登録", new_user_registration_path, class: "text-white" %>
-                     </p>
-                     <p class="col-lg-2 col-12 px-0 flex-fill">
-                       <%= link_to "ログイン", new_user_session_path, class: "text-white" %>
-                     </p>
-                   </div>
-                 </ul>
-               </div>
-             </div>
-           </nav>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <span class="navbar-brand p-3">
+          <%= link_to root_path do %>
+            <%= image_tag asset_path('impasse.png'), height: '100px', width: '150px' %>
+          <% end %>
+        </span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <%= link_to new_road_path, class: "text-white" do %>
+                地点登録
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "About",  "/homes/about", class: "text-white" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "新規会員登録", new_user_registration_path, class: "text-white" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ログイン", new_user_session_path, class: "text-white" %>
+            </li>
+          </ul>
         </div>
       </div>
+    </nav>
   <% end %>
 </header>

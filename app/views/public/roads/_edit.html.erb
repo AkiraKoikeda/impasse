@@ -78,8 +78,8 @@
   }
 </style>
 <script>
-  //マーカーが正常に表示されない為、仮でvar使用
-  var editMarker = null;
+  //let、constではマーカーが正常に表示されない為、var使用
+  let editMarker = null;
 
   function initMap(){
     let LatLng = { lat: <%= road.lat %>, lng: <%= road.lng %> };

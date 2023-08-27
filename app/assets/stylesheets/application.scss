@@ -14,36 +14,30 @@
  *= require_self
  */
 
- body{
-
- }
-
-.footerFixed{
-  min-height: 100vh;
-  position: relative;
-  padding-bottom: 120px;
-  box-sizing: border-box;
-}
-
 header{
   background-color: gray;
-  border-bottom: 20px #c0c0c0;
+  border-bottom: 20px double white;
+  border-top: 20px double white;
   color: white;
+}
+
+footer{
+  border-top: 20px double white;
+  text-align: center;
+  background-color: gray;
+  color: white;
+}
+
+.main{
+  min-height: 70vh;
 }
 
 .navbar-light .navbar-toggler-icon {
     background-image: white;
 }
 
-footer{
-  text-align: center;
-  background-color: gray;
-  color: white;
-  bottom: 0;
-  position: absolute;
-  width: 100%;
-  padding: 30px 0;
-
+li{
+  margin: 5px 15px;
 }
 
 .title{
@@ -69,7 +63,11 @@ footer{
   }
 }
 
-.field_with_errors {
-  display: flex;
-  width: 408px;
+// 新規登録時のエラーメッセージ表示
+#error_explanation{
+  color: white;
+  background-color: #fa8072;
+  padding: 5px 20px;
 }
+
+

@@ -72,13 +72,13 @@
   </style>
 
   <script>
-    //マーカーが正常に表示されない為、仮でvar使用
+    //let、constではマーカーが正常に表示されない為、var使用
     var marker = null;
 
     function initMap(){
 
       var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 34.6937, lng: 135.5021},
+        center: {lat: 34.733359423977156, lng: 135.49968137672695},
         zoom: 14
       });
 
@@ -114,7 +114,6 @@
             alert("原因不明のエラーが発生しました。");
           }
           document.getElementById('addressOutput').value = address;
-          console.log("aO=", address);
         }
       );
 
