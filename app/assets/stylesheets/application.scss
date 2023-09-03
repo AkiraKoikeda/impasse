@@ -14,32 +14,30 @@
  *= require_self
  */
 
-.footerFixed{
-  min-height: 100vh;
-  position: relative;
-  padding-bottom: 120px;
-  box-sizing: border-box;
-}
-
 header{
   background-color: gray;
-  border-bottom: 20px #c0c0c0;
+  border-bottom: 20px double white;
+  border-top: 20px double white;
   color: white;
+}
+
+footer{
+  border-top: 20px double white;
+  text-align: center;
+  background-color: gray;
+  color: white;
+}
+
+.main{
+  min-height: 70vh;
 }
 
 .navbar-light .navbar-toggler-icon {
     background-image: white;
 }
 
-footer{
-  text-align: center;
-  background-color: gray;
-  color: white;
-  bottom: 0;
-  position: absolute;
-  width: 100%;
-  padding: 30px 0;
-
+li{
+  margin: 5px 15px;
 }
 
 .title{
@@ -49,6 +47,18 @@ footer{
 
 .link{
   text-decoration: none !important;
+}
+
+.back{
+  width: 100%;
+  height: 70vh;
+  background-image: image-url("about_back.jpg");
+  background-position: center;
+}
+
+.about{
+  height: 70vh;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 // フラッシュメッセージ設定
@@ -65,7 +75,25 @@ footer{
   }
 }
 
-.field_with_errors {
-  display: flex;
-  width: 408px;
+// 新規登録時のエラーメッセージ表示
+#error_explanation{
+  color: white;
+  background-color: #fa8072;
+  padding: 5px 20px;
+}
+
+
+//ページャレイアウト
+.pagination>li>a {
+  border: none;
+  color: #696969;
+}
+
+.pagination>.active>a {
+  background: #93c9ff;
+  border-radius: 15px;
+}
+
+.pagination>li>a:hover {
+  border-radius: 15px;
 }

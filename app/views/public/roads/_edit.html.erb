@@ -9,7 +9,7 @@
           <% if road.image.attached? %>
             <%= image_tag road.image, height: '400px', width: '100%' %>
           <% else %>
-            <%= image_tag 'noimage-760x460.png', height: '400px', width: '100%' %>
+            <%= image_tag asset_path('noimage-760x460.png'), height: '400px', width: '100%' %>
           <% end %>
         </div>
     </div>
@@ -78,7 +78,7 @@
   }
 </style>
 <script>
-  //マーカーが正常に表示されない為、仮でvar使用
+  //let、constではマーカーが正常に表示されない為、var使用
   var editMarker = null;
 
   function initMap(){

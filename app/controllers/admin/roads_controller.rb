@@ -2,7 +2,7 @@ class Admin::RoadsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @roads = Road.all
+    @roads = Road.page(params[:page])
     @road_comment = RoadComment.new
   end
 
