@@ -8,10 +8,18 @@ class Public::RoadsController < ApplicationController
 
   def edit
     @road = Road.find(params[:id])
+    user = @road.user
+    unless user.id == current_user.id
+      redirect_to road_path
+    end
   end
 
   def update
     @road = Road.find(params[:id])
+    user = @road.user
+    unless user.id == current_user.id
+      redirect_to road_path
+    end
     if @road.update(road_params)
       flash[:notice] = "投稿に成功しました"
       redirect_to road_path(@road.id)
