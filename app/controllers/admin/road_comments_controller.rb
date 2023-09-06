@@ -5,9 +5,8 @@ class Admin::RoadCommentsController < ApplicationController
   end
 
   private
-
-  def road_comment_params
-    params.require(:road_comment).permit(:comment)
-  end
+    def road_comment_params
+      params.require(:road_comment).permit(:comment)
+    end
 
 end
