@@ -7,8 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Admin.create!(
-  email: 'admin@admin',
-  password: 'testtest'
+  email: "admin@admin",
+  password: "testtest"
 )
 
 taro = User.find_or_create_by!(email: "taro@impasse.com") do |user|
