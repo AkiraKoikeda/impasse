@@ -1,0 +1,41 @@
+<p id="comment-count", class: "col-12 mt-5 title text-center">
+  <%= road.road_comments.count %>件のコメント
+</p>
+  <div class="col-12">
+  <% if admin_signed_in? %>  <%# adminの時のコメントレイアウト%>
+    <% road.road_comments.each do |road_comment| %>
+    <div class="d-flex col-12 mb-3">
+      <div class="col-9 text-left mb-4">
+        <%= road_comment.comment %></br>
+        <%= road_comment.user.name %>
+        <%= road_comment.created_at.strftime('%Y/%m/%d') %>
+      </div>
+      <span class="col-3">
+        <%= link_to "削除", road_road_comment_path(road_comment.road, road_comment), method: :delete, data: { confirm: "このコメントを削除しますか？" }, class: "btn btn-danger" %>
+      </span>
+    </div>
+    <% end %>
+  <% else %>　<%# publicの時のコメントレイアウト%>
+    <% road.road_comments.each do |road_comment| %>
+      <% if road_comment.user != current_user %> <%# 自分以外のコメントは左へ %>
+        <div class="d-flex col-12 mb-3">
+          <div class="col-9 text-left mb-4">
+          <%= road_comment.comment %></br>
+          <%= road_comment.user.name %>
+          <%= road_comment.created_at.strftime('%Y/%m/%d') %>
+        </div>
+        </div>
+      <% else %>　<%# 自分のコメントは右へ、削除ボタンも表示 %>
+        <div class="d-flex col-12 mb-3">
+          <span class="col-3 text-right">
+            <%= link_to "削除", road_road_comment_path(road_comment.road, road_comment), method: :delete, data: { confirm: "このコメントを削除しますか？" }, class: "btn btn-danger" %>
+          </span>
+            <div class="col-9 text-right mb-4">
+              <%= road_comment.comment %></br>
+              <%= road_comment.user.name %>
+              <%= road_comment.created_at.strftime('%Y/%m/%d') %>
+            </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
