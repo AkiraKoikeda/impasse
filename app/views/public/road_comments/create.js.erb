@@ -1,4 +1,3 @@
-debugger
-$('#road-comments').html("<%= j(render "public/roads/comments", road: road ) %>");
+$('#road-comments').html("<%= j(render "public/roads/comments", road: @road ) %>");
 $('#comment-count').html("<%= @road.road_comments.count %>件のコメント")
 $("textarea").val('');
