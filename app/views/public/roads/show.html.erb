@@ -1,1 +1,92 @@
-<%= render 'show', road: @road, road_comment: @road_comment %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 col-12 mb-1">
+      <h4 class="col-3 title mt-3 text-center">状況詳細</h4>
+        <div id='map'></div>
+        <div class="mt-4">
+          <% if @road.image.attached? %>
+            <%= image_tag @road.image, height: '400px', width: '100%' %>
+          <% else %>
+            <%= image_tag asset_path('noimage-760x460.png'), height: '400px', width: '100%' %>
+          <% end %>
+        </div>
+    </div>
+    <div class="col-lg-6 col-12">
+      <div class="col-12 mb-5"></div>
+      <div class="d-flex col-12 mb-3">
+        <span class="flex-fill bd-highlight col-3">住所</span>
+          <%= @road.address %>
+      </div>
+      <div class="d-flex col-12 mb-3">
+        <span class="flex-fill bd-highlight col-3">緯度</span>
+          <%= @road.lat %>
+      </div>
+      <div class="d-flex col-12 mb-3">
+        <span class="flex-fill bd-highlight col-3">経度</span>
+          <%= @road.lng %>
+      </div>
+      <div class="d-flex col-12 mb-3" id="star">
+        <span class="flex-fill bd-highlight col-3">走行難度</span>
+        <%= render "public/roads/static_rate", road: @road %>
+      </div>
+      <div class="d-flex col-12 mb-3">
+        <span class="flex-fill bd-highlight col-3">車種</span>
+          <%= @road.car_model %>
+      </div>
+      <div class="d-flex col-12 mb-3">
+        <span class="flex-fill bd-highlight col-3">詳細説明</span>
+          <%= @road.situation %>
+      </div>
+
+      <% if admin_signed_in? %>
+          <div class="d-flex bd-highlight justify-content-center mb-2">
+            <%= link_to '編集', edit_admin_road_path(@road.id), class: "btn btn-success mr-3" %>
+            <%= link_to '削除', admin_road_path(@road.id), method: :delete, class: "btn btn-danger ml-3" %>
+          </div>
+      <% elsif @road.user == current_user %>
+          <div class="d-flex bd-highlight justify-content-center mb-2">
+            <%= link_to '編集', edit_road_path(@road.id), class: "btn btn-success mr-3" %>
+            <%= link_to '削除', road_path(@road.id), method: :delete, data: { confirm: "この投稿を削除しますか？" }, class: "btn btn-danger ml-3" %>
+          </div>
+      <% else %>
+      <% end %>
+
+      <div id="road-comments">
+        <%= render 'public/road_comments/comments', road: @road %>
+      </div>
+
+      <% if user_signed_in? %>
+        <div id="comment-form">
+          <%= render 'public/road_comments/comment_form', { road: @road, road_comment: @road_comment } %>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #map {
+    height: 400px;
+    width: 100%;
+  }
+</style>
+
+<script>
+  //let、constではマーカーが正常に表示されない為、var使用
+  var showMap
+
+  function initMap(){
+    let showLatLng = { lat: <%= @road.lat %>, lng: <%= @road.lng %> };
+    showMap = new google.maps.Map(document.getElementById('map'), {
+      center: showLatLng,
+      zoom: 14
+    });
+
+    let showMarker = new google.maps.Marker({
+      position: showLatLng,
+      map: showMap
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>
