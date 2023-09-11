@@ -2,7 +2,6 @@
 
 class Public::RoadCommentsController < ApplicationController
   def create
-    @road = Road.find(params[:road_id])
     road = Road.find(params[:road_id])
     comment = current_user.road_comments.new(road_comment_params)
     comment.road_id = road.id
