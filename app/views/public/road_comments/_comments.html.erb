@@ -1,6 +1,3 @@
-<p id="comment-count", class: "col-12 mt-5 title text-center">
-  <%= road.road_comments.count %>件のコメント
-</p>
   <div class="col-12">
   <% if admin_signed_in? %>  <%# adminの時のコメントレイアウト%>
     <% road.road_comments.each do |road_comment| %>

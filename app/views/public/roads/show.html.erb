@@ -50,9 +50,12 @@
           </div>
       <% else %>
       <% end %>
+      <p id="comment-count", class: "col-12 mt-5 title text-center">
+        <%= @road.road_comments.count %>件のコメント
+      </p>
 
       <div id="road-comments">
-        <%= render 'public/road_comments/comments', road: @road %>
+        <%= render 'public/road_comments/comments', { road: @road, road_comment: @road_comment } %>
       </div>
 
       <% if user_signed_in? %>
