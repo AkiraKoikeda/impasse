@@ -53,8 +53,14 @@
       <% else %>
       <% end %>
 
+      <% if user_signed_in? %>
+        <div id="comment-form">
+          <%= render 'public/road_comments/comment_form', { road: road, road_comment: road_comment } %>
+        </div>
+      <% end %>
+
       <div id="road-comments">
-        <%= render 'public/roads/comments', road: road %>
+        <%= render 'public/road_comments/comments', road: road %>
       </div>
       <div class="bug-block">
         <h3>aaaaaaaa</h3>
@@ -67,11 +73,7 @@
         <h1>mmmmm</h1>
       </div>
 
-      <% if user_signed_in? %>
-        <div id="comment-form">
-          <%= render 'public/roads/comment_form', { road: road, road_comment: road_comment } %>
-        </div>
-      <% end %>
+
       </div>
     </div>
   </div>
