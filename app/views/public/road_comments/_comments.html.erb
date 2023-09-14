@@ -25,7 +25,7 @@
       <% else %>　<%# 自分のコメントは右へ、削除ボタンも表示 %>
         <div class="d-flex col-12 mb-3">
           <span class="col-3 text-right">
-            <%= link_to "削除", road_road_comment_path(road_comment.road, road_comment), method: :delete, data: { confirm: "このコメントを削除しますか？" }, class: "btn btn-danger" %>
+            <%= link_to "削除", road_road_comment_path(road_comment.road, road_comment), method: :delete, remote: true, data: { confirm: "このコメントを削除しますか？" }, class: "btn btn-danger" %>
           </span>
             <div class="col-9 text-right mb-4">
               <%= road_comment.comment %></br>

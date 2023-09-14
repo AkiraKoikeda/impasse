@@ -11,6 +11,7 @@ class Public::RoadCommentsController < ApplicationController
   end
 
   def destroy
+    @road = Road.find(params[:road_id])
     RoadComment.find(params[:id]).destroy
   end
 
