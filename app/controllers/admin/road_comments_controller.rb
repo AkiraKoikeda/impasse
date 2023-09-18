@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::RoadCommentsController < ApplicationController
   def destroy
     RoadComment.find(params[:id]).destroy

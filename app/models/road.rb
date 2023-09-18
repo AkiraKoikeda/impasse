@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Road < ApplicationRecord
   has_one_attached :image
 
