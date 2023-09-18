@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::RoadCommentsController < ApplicationController
   def destroy
     RoadComment.find(params[:id]).destroy
@@ -5,9 +7,8 @@ class Admin::RoadCommentsController < ApplicationController
   end
 
   private
-
-  def road_comment_params
-    params.require(:road_comment).permit(:comment)
-  end
+    def road_comment_params
+      params.require(:road_comment).permit(:comment)
+    end
 
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::RoadsController < ApplicationController
   before_action :authenticate_admin!
 
@@ -36,8 +38,7 @@ class Admin::RoadsController < ApplicationController
   end
 
   private
-
-  def road_params
-    params.require(:road).permit(:address, :car_model, :situation, :lat, :lng, :star)
-  end
+    def road_params
+      params.require(:road).permit(:address, :car_model, :situation, :lat, :lng, :star)
+    end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRoadComments < ActiveRecord::Migration[6.1]
   def change
     create_table :road_comments do |t|

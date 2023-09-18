@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!
 
@@ -30,8 +32,7 @@ class Public::UsersController < ApplicationController
   end
 
   private
-
-  def user_params
-    params.require(:user).permit(:name, :email)
-  end
+    def user_params
+      params.require(:user).permit(:name, :email)
+    end
 end

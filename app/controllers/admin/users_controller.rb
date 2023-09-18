@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
 
@@ -21,8 +23,7 @@ class Admin::UsersController < ApplicationController
   end
 
   private
-
-  def user_params
-    params.require(:user).permit(:name, :email, :is_deleted)
-  end
+    def user_params
+      params.require(:user).permit(:name, :email, :is_deleted)
+    end
 end
