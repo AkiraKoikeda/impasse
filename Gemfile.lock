@@ -169,14 +169,7 @@ GEM
     nokogiri (1.15.3-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
-<<<<<<< HEAD
     public_suffix (5.0.3)
-=======
-    parallel (1.23.0)
-    parser (3.2.2.3)
-      ast (~> 2.4.1)
-      racc
->>>>>>> develop
     puma (3.12.6)
     racc (1.7.1)
     rack (2.2.8)
