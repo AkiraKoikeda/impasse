@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Public::RoadsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
@@ -8,15 +10,23 @@ class Public::RoadsController < ApplicationController
 
   def edit
     @road = Road.find(params[:id])
+    user = @road.user
+    unless user.id == current_user.id
+      redirect_to road_path
+    end
   end
 
   def update
     @road = Road.find(params[:id])
+    user = @road.user
+    unless user.id == current_user.id
+      redirect_to road_path
+    end
     if @road.update(road_params)
       flash[:notice] = "投稿に成功しました"
       redirect_to road_path(@road.id)
     else
-      flash[:notice] = "正しい情報を入力してください"
+      flash[:alert] = "正しい情報を入力してください"
       render :edit
     end
   end
@@ -41,7 +51,7 @@ class Public::RoadsController < ApplicationController
       flash[:notice] = "投稿に成功しました"
       redirect_to road_path(@road.id)
     else
-      flash[:notice] = "正しい情報を入力してください"
+      flash[:alert] = "正しい情報を入力してください"
       render :new
     end
   end
@@ -51,10 +61,9 @@ class Public::RoadsController < ApplicationController
   end
 
   private
-
-  def road_params
-    params.require(:road).permit(:address, :car_model, :situation, :lat, :lng, :star, :image)
-  end
+    def road_params
+      params.require(:road).permit(:address, :car_model, :situation, :lat, :lng, :star, :image)
+    end
 end
 
 

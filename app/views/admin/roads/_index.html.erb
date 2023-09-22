@@ -13,14 +13,9 @@
       <tr>
         <td style="width: 18%"><%= road.user.name %></td>
         <td>
-          <% if admin_signed_in? %>
-            <%= link_to admin_road_path(road.id) do %>
-              <%= road.address %>
-            <% end %>
-          <% else %>
-            <%= link_to road_path(road.id) do %>
-              <%= road.address %>
-            <% end %>
+          <% url = admin_signed_in? ? admin_road_path(road.id) : road_path(road.id) %>
+          <%= link_to url do %>
+            <%= road.address %>
           <% end %>
         </td>
         <td style="width: 25%"><%= render "public/roads/static_rate", road: road %></td>

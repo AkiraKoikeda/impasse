@@ -1,52 +1,48 @@
 
+<%= render "public/shared/error_messages", resource: resource %>
 <div class="container pt-5">
   <div class="row justify-content-center">
     <div class="col-md-8 col-12 justify-content-center">
-      <%= render "public/shared/error_messages", resource: resource %>
-      <h4 class="col-lg-3 col-md-4 col-sm-12 col-12 mb-5 text-center title">新規会員登録</h4>
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <div class="d-flex flex-wrap bd-highlight">
+      <h4 class="col-lg-4 col-md-5 col-sm-12  mb-5 text-center title">新規会員登録</h4>
+      <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
+        <div class="d-flex flex-wrap bd-highlight mb-3">
           <span class="flex-fill bd-highlight col-xl-1 col-sm-0 col-0"></span>
-          <p class="flex-fill bd-highlight col-lg-3 col-md-4 col-sm-12 col-12 offset-lg-2 ml-lg-5">ユーザー名</p>
-          <p class="form_group flex-fill">
+          <span class="flex-fill bd-highlight col-lg-3 col-md-4 col-sm-12 col-12 offset-lg-2 ml-lg-5">ユーザー名</span>
+          <span class="form_group flex-fill">
             <%= f.text_field :name ,class: "form_control flex-fill bd-highlight",size: "50", placeholder: "安全太郎" %>
-          </p>
+          </span>
         </div>
 
-        <div class="d-flex flex-wrap bd-highlight">
+        <div class="d-flex flex-wrap bd-highlight mb-3">
           <span class="flex-fill bd-highlight col-xl-1 col-sm-0 col-0"></span>
-          <p class="flex-fill bd-highlight col-lg-3 col-md-4 col-sm-12 col-12 offset-lg-2 ml-lg-5"> e-mailアドレス</p>
-          <p class="form_group flex-fill">
+          <span class="flex-fill bd-highlight col-lg-3 col-md-4 col-sm-12 col-12 offset-lg-2 ml-lg-5"> e-mailアドレス</span>
+          <span class="form_group flex-fill">
             <%= f.email_field :email, autofocus: true, autocomplete: "email" ,class: "form_control  flex-fill bd-highlight", size: "50", placeholder: "sample@example.com" %>
-          </p>
+          </span>
         </div>
 
-        <div class="d-flex flex-wrap bd-highlight">
+        <div class="d-flex flex-wrap bd-highlight mb-3">
           <span class="flex-fill bd-highlight col-xl-1 col-sm-0 col-0"></span>
-          <p class="flex-fill bd-highlight col-lg-3 col-md-4 col-sm-12 col-12 offset-lg-2 ml-lg-5">パスワード</p>
-          <p class="form_group flex-fill">
+          <span class="flex-fill bd-highlight col-lg-3 col-md-4 col-sm-12 col-12 offset-lg-2 ml-lg-5">パスワード</span>
+          <span class="form_group flex-fill">
             <%= f.password_field :password, autocomplete: "new-password", class: "form_control  flex-fill bd-highlight", size: "50" %>
-          </p>
+          </span>
         </div>
 
         <div class="d-flex flex-wrap bd-highlight">
           <span class="flex-fill bd-highlight col-xl-1 col-sm-0 col-0"></span>
-          <p class="flex-fill bd-highlight col-lg-3 col-md-4 col-sm-12 col-12 offset-lg-2 ml-lg-5">パスワード(確認用)</p>
-          <p class="form_group flex-fill">
+          <span class="flex-fill bd-highlight col-lg-3 col-md-4 col-sm-12 col-12 offset-lg-2 ml-lg-5">パスワード(確認用)</span>
+          <span class="form_group flex-fill">
             <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form_control  flex-fill bd-highlight", size: "50" %>
           </p>
         </div>
 
-        <div class="d-flex bd-highlight">
-            <span class="flex-fill bd-highlight col-1"></span>
-          <span class="flex-fill bd-highlight col-3 ml-5"></span>
-          <p class="actions">
+        <div class="d-flex bd-highlight justify-content-center">
             <%= f.submit "新規登録", class: "btn btn-success px-5" %>
-          </p>
         </div>
       <% end %>
       <div class="col-12 mb-5"></div>
-      <h5 class="col-lg-4 col-md-4 col-sm-11 col-11 mb-3 text-center title">既に登録済みの方</h5>
+      <h5 class="col-lg-4 col-md-5 col-sm-12 col-11 mb-3 text-center title">既に登録済みの方</h5>
       <p class="ml-5 pl-3"><%= render "public/shared/links" %>　からログインしてください。</p>
     </div>
   </div>

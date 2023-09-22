@@ -1,8 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-6 col-12 mb-5">
-      <%= flash[:notice] %> 
+      <%= flash[:notice] %>
       <h4 class="col-3 title mt-3 text-center">地点登録</h4>
+      <div class="col-12  text-right">
+        <input id="address" type="textbox" size= "40%" placeholder="住所で検索">
+        <input type="button" value="検索" onclick="codeAddress()">
+      </div>
         <div id='map'></div>
     </div>
     <div class="col-lg-6 col-12">
@@ -57,6 +61,9 @@
             <%= f.submit '投稿', class: "btn btn-primary" %>
         </div>
       <% end %>
+      <div class="col-10 offset-2 mt-5">
+        <%= render 'public/roads/explanation' %>
+      </div>
     </div>
   </div>
 </div>
@@ -69,12 +76,15 @@
   </style>
 
   <script>
+    //let、constではマーカーが正常に表示されない為、var使用
     var marker = null;
+    var map
 
     function initMap(){
+      geocoder = new google.maps.Geocoder()
 
-      var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 34.6937, lng: 135.5021},
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 34.733359423977156, lng: 135.49968137672695},
         zoom: 14
       });
 
@@ -83,16 +93,16 @@
 
     function clickListener(event, map) {
       //緯度・軽度の取得、住所への変換
-      var lat = event.latLng.lat();
-      var lng = event.latLng.lng();
+      let lat = event.latLng.lat();
+      let lng = event.latLng.lng();
       document.getElementById('lat').value = event.latLng.lat();
       document.getElementById('lng').value = event.latLng.lng();
-      var latLngInput = new google.maps.LatLng(lat, lng);
-      var geocoder = new google.maps.Geocoder();
+      let latLngInput = new google.maps.LatLng(lat, lng);
+      let geocoder = new google.maps.Geocoder();
       geocoder.geocode(
         { latLng: latLngInput },
         function(results, status) {
-          var address = "";
+          let address = "";
 
           if (status == google.maps.GeocoderStatus.OK) {
             address = results[0].formatted_address;
@@ -110,18 +120,31 @@
             alert("原因不明のエラーが発生しました。");
           }
           document.getElementById('addressOutput').value = address;
-          console.log("aO=", address);
         }
       );
 
       //マーカーのリセット
       if(marker){
-        console.log("marker=", marker);
         marker.setMap(null);
       }
       marker = new google.maps.Marker({
         position: {lat, lng},
         map
+      });
+    }
+
+    ///検索後の処理
+    function codeAddress(){
+      let inputAddress = document.getElementById('address').value;
+      geocoder.geocode({ 'address': inputAddress }, function(results, status){
+        if(status == 'OK'){
+          let newLat = results[0].geometry.location.lat()
+          let newLng = results[0].geometry.location.lng()
+          const newCenter = new google.maps.LatLng(newLat, newLng);
+          map.setCenter(newCenter);
+        } else {
+          alert('該当する結果がありませんでした');
+        }
       });
     }
 

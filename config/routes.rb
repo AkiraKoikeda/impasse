@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
 
   scope module: :public do
-    get 'users/edit'  => 'users#edit' ,as: 'edit_users'
-    patch 'users' => 'users#update'
+    get "users/edit"  => "users#edit" ,as: "edit_users"
+    patch "users" => "users#update"
   end
 
   #ユーザーログイン
   devise_for :users, skip: [:passwords], controllers: {
     registrations: "public/registrations",
-    sessions: 'public/sessions'
+    sessions: "public/sessions"
   }
 
   #管理者ログイン
@@ -18,13 +20,13 @@ Rails.application.routes.draw do
 
   #ゲストログイン
   devise_scope :user do
-    post 'public/guest_sign_in', to: 'public/sessions#guest_sign_in'
+    post "public/guest_sign_in", to: "public/sessions#guest_sign_in"
   end
 
   #ユーザー側アクション
   scope module: :public do
     root to: "roads#index"
-    get 'homes/about'
+    get "homes/about"
     resource :users, only: [:show] do
       get :unscribe, on: :collection
       patch :withdrawal, on: :collection

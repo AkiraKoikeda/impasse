@@ -1,72 +1,99 @@
-<div class="conteiner">
+<div class="container">
   <div class="row">
-    <h4 class=" offset-1 col-2 title mt-3 mb-3 text-center">マップ</h4>
-    <div class="col-lg-10 justify-content-center"></div>
-      <div class="col-lg-6 d-flex bd-highlight ml-2">
-        <input id="address" type="textbox"　value="Osaka" class= "form-control flex-fill">
+    <div class="col-lg-7 mb-4">
+      <h4 class=" offset-lg-1 col-lg-2 title mt-3 mb-3 text-center">マップ</h4>
+      <div class="col-12  text-right">
+        <input id="address" type="textbox" size= "40%" placeholder="住所で検索">
         <input type="button" value="検索" onclick="codeAddress()">
       </div>
-    <div class="col-lg-8 mb-4">
-      <div id='map' class="ml-2 mr-2"></div>
+      <div class="col-12">
+        <div id='map'></div>
+      </div>
     </div>
-    <div class="col-lg-4 mb-4">
-      <div class="col-12 mb-3">
+    <div class="col-lg-5 mb-4">
+      <div class="col-12 mb-4"></div>
+      <div class="col-12 mt-5 mb-3">
       <h5>登録された地点</h5>
         <i class="fa-solid fa-road"></i><span id="postAddress"></span>
       </div>
       <div class="col-12 mb-3">
       <h5>走行難度</h5>
+        <div id="rate">
+        <% 5.times do %>
+          <%= image_tag asset_path('star-off.png') %>
+        <% end %>
+        </div>
       </div>
       <div class="col-12 mb-3">
       <h5>周辺写真</h5>
-      <div id="photo" class= "col-12 text-center"></div>
+      <div id="photo" class= "col-12 text-center">
+        <%= image_tag asset_path('noimage-760x460.png'), height: '300px', width: '90%' %>
       </div>
-
+      </div>
         <p id="detail" class= "col-12 mb-3 text-center"><p>
+        <div class="col-10 offset-1 mt-5">
+          <%= render 'public/roads/explanation' %>
+        </div>
     </div>
   </div>
 </div>
 
   <style>
     #map {
-      height: 600px;
+      height: 800px;
       width: 100%;
     }
   </style>
 
-
   <script>
+    //let、constではマーカーが正常に表示されない為、var使用
     var indexMap
 
     function initMap(){
       geocoder = new google.maps.Geocoder()
 
       indexMap = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 34.6937, lng: 135.5021},
+        center: {lat: 34.733359423977156, lng: 135.49968137672695},
         zoom: 12,
       });
 
+      //マーカーの設置
       <% @roads.each do |road| %>
         ( function() {
-          var markerLatLng = { lat: <%= road.lat %>, lng: <%= road.lng %>};
-          var indexMarker = new google.maps.Marker({
+          let markerLatLng = { lat: <%= road.lat %>, lng: <%= road.lng %>};
+          let indexMarker = new google.maps.Marker({
             position: markerLatLng,
             map: indexMap
           });
 
+          //マーカークリック後の処理
           indexMarker.addListener('click', function() {
             document.getElementById('postAddress').textContent = "<%= road.address %>";
+            document.getElementById('rate').innerHTML = `<div id="star_<%= road.id %>"></div>`;
+              let elem = document.querySelector('#star_<%= road.id %>');
+              if (elem == null) return;
+
+              elem.innerHTML = "";
+              let opt = {
+                starOn: "<%= asset_path('star-on.png') %>",
+                starOff: "<%= asset_path('star-off.png') %>",
+                starHalf: false,
+                score: "<%= road.star %>",
+                readOnly: true,
+              };
+              raty(elem, opt);
              <% if road.image.attached? %>
-               document.getElementById('photo').innerHTML = `<%= image_tag road.image, height: '300px', width: '500px' %>`;
+               document.getElementById('photo').innerHTML = `<%= image_tag road.image, height: '300px', width: '90%' %>`;
              <% else %>
-               document.getElementById('photo').innerHTML = `<%= image_tag 'noimage-760x460', height: '300px', width: '100%' %>`;
+               document.getElementById('photo').innerHTML = `<%= image_tag asset_path('noimage-760x460.png'), height: '300px', width: '90%' %>`;
              <% end %>
-            document.getElementById('detail').innerHTML = `<%= link_to "詳細", road_path(road.id), class: "btn btn-primary" %>`;
+            document.getElementById('detail').innerHTML = `<%= link_to "詳細", road_path(road.id), class: "btn btn-primary pr-5 pl-5" %>`;
           });
         })();
       <% end %>
     }
 
+    //検索後の処理
     function codeAddress(){
       let inputAddress = document.getElementById('address').value;
       geocoder.geocode({ 'address': inputAddress }, function(results, status){
@@ -76,7 +103,7 @@
           const newCenter = new google.maps.LatLng(newLat, newLng);
           indexMap.setCenter(newCenter);
         } else {
-          alert('該当する結果がありませんでした' + status);
+          alert('該当する結果がありませんでした');
         }
       });
     }

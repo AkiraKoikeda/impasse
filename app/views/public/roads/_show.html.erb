@@ -9,7 +9,7 @@
           <% if road.image.attached? %>
             <%= image_tag road.image, height: '400px', width: '100%' %>
           <% else %>
-            <%= image_tag 'noimage-760x460', height: '400px', width: '100%' %>
+            <%= image_tag asset_path('noimage-760x460.png'), height: '400px', width: '100%' %>
           <% end %>
         </div>
     </div>
@@ -53,56 +53,22 @@
       <% else %>
       <% end %>
 
-      <p class="col-12 mt-5 title text-center"><%= road.road_comments.count %>件のコメント</p>
-      <div class="col-12">
-      <% if admin_signed_in? %>  <%# adminの時のコメントレイアウト%>
-        <% road.road_comments.each do |road_comment| %>
-        <div class="d-flex col-12 mb-3">
-          <div class="col-9 text-left mb-4">
-            <%= road_comment.comment %></br>
-            <%= road_comment.user.name %>
-            <%= road_comment.created_at.strftime('%Y/%m/%d') %>
-          </div>
-          <span class="col-3">
-            <%= link_to "削除", road_road_comment_path(road_comment.road, road_comment), method: :delete, data: { confirm: "このコメントを削除しますか？" }, class: "btn btn-danger" %>
-          </span>
+      <div class="col-12 mt-5 title text-center">
+        <div id="comment-count">
+          <%= road.road_comments.count %>件のコメント
         </div>
-        <% end %>
-      <% else %>　<%# publicの時のコメントレイアウト%>
-        <% road.road_comments.each do |road_comment| %>
-          <% if road_comment.user != current_user %>
-            <div class="d-flex col-12 mb-3">
-              <div class="col-9 text-left mb-4">
-              <%= road_comment.comment %></br>
-              <%= road_comment.user.name %>
-              <%= road_comment.created_at.strftime('%Y/%m/%d') %>
-            </div>
-            </div>
-          <% else %>
-            <div class="d-flex col-12 mb-3">
-              <span class="col-3 text-right">
-                <%= link_to "削除", road_road_comment_path(road_comment.road, road_comment), method: :delete, data: { confirm: "このコメントを削除しますか？" }, class: "btn btn-danger" %>
-              </span>
-                <div class="col-9 text-right mb-4">
-                  <%= road_comment.comment %></br>
-                  <%= road_comment.user.name %>
-                  <%= road_comment.created_at.strftime('%Y/%m/%d') %>
-                </div>
-            </div>
-          <% end %>
-        <% end %>
+      </div>
+      <div>
+        <div id="road-comments">
+          <%= render 'public/road_comments/comments', road: road %>
+        </div>
+      </div>
+      <% if user_signed_in? %>
+        <div id="comment-form">
+          <%= render 'public/road_comments/comment_form', { road: road, road_comment: road_comment } %>
+        </div>
       <% end %>
 
-      <% if user_signed_in? %>
-        <%= form_with model: [road, road_comment] do |f| %>
-          <div class="d-flex col-12 mb-3">
-            <%= f.text_area :comment, rows: '3', placeholder: "コメントをここに", class: "flex-fill rounded" %>
-          </div>
-          <div class="d-flex bd-highlight justify-content-center mb-2">
-            <%= f.submit "送信する", class: "btn btn-primary" %>
-          </div>
-        <% end %>
-      <% end %>
       </div>
     </div>
   </div>
@@ -116,10 +82,11 @@
 </style>
 
 <script>
+  //let、constではマーカーが正常に表示されない為、var使用
   var showMap
 
   function initMap(){
-    var showLatLng = { lat: <%= road.lat %>, lng: <%= road.lng %> };
+    let showLatLng = { lat: <%= road.lat %>, lng: <%= road.lng %> };
     showMap = new google.maps.Map(document.getElementById('map'), {
       center: showLatLng,
       zoom: 14
