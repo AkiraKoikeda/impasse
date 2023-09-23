@@ -3,35 +3,55 @@
 require "rails_helper"
 
 RSpec.describe Road, "モデルに関するテスト", type: :model do
-  describe '実際に保存してみる' do
-    it "有効な投稿内容の場合は保存されるか" do
-      expect(FactoryBot.build(:road)).to be_valid
+  describe 'バリデーションのテスト' do
+    subject { road.valid? }
+
+    let(:user) { create(:user) }
+    let!(:road) { build(:road, user_id: user.id) }
+
+    context "addressカラム" do
+      it "空白の場合のバリデーションチェック" do
+        road.address = ''
+        is_expected.to eq false
+      end
     end
-  end
-  context "空白のバリデーションチェック" do
-    it "addressが空白の場合のバリデーションチェック" do
-      road = Road.new(user_id: 2, address: '', car_model: 'プリウス', lat: 34.760023031284106, lng: 135.5138928854205, situation: 'とてもせまいです。', star: 3)
-      expect(road).to be_invalid
+    context "car_modelカラム" do
+      it "空白でないこと" do
+        road.car_model = ''
+        is_expected.to eq false
+      end
+      it "2文字以上であること" do
+        road.car_model = Faker::Vehicle.car_type(number: 1)
+        is_expected.to eq false
+      end
+      it "20文字以以下であること" do
+        road.car_model = Faker::Vehicle.car_type(number: 21)
+        is_expected.to eq false
+      end
     end
-    it "car_modelが空白の場合のバリデーションチェック" do
-      road = Road.new(user_id: 2, address: '日本、〒564-0041 大阪府吹田市泉町２丁目３３', car_model: '', lat: 34.760023031284106, lng: 135.5138928854205, situation: 'とてもせまいです。', star: 3)
-      expect(road).to be_invalid
+    context "latカラム" do
+      it "空白でないこと" do
+        road.lat = ()
+        is_expected.to eq false
+      end
     end
-    it "latが空白の場合のバリデーションチェック" do
-      road = Road.new(user_id: 2, address: '日本、〒564-0041 大阪府吹田市泉町２丁目３３', car_model: 'プリウス', lat: (), lng: 135.5138928854205, situation: 'とてもせまいです。', star: 3)
-      expect(road).to be_invalid
+    context "lngカラム" do
+      it "空白でないこと" do
+        road.lng = ()
+        is_expected.to eq false
+      end
     end
-    it "lngが空白の場合のバリデーションチェック" do
-      road = Road.new(user_id: 2, address: '日本、〒564-0041 大阪府吹田市泉町２丁目３３', car_model: 'プリウス', lat: 34.760023031284106, lng: (), situation: 'とてもせまいです。', star: 3)
-      expect(road).to be_invalid
+    context "situationカラム" do
+      it "空白でないこと" do
+        road.situation = ''
+        is_expected.to eq false
+      end
     end
-    it "situationが空白の場合のバリデーションチェック" do
-      road = Road.new(user_id: 2, address: '日本、〒564-0041 大阪府吹田市泉町２丁目３３', car_model: 'プリウス', lat: 34.760023031284106, lng: 135.5138928854205, situation: '', star: 3)
-      expect(road).to be_invalid
-    end
-    it "starが空白の場合のバリデーションチェック" do
-      road = Road.new(user_id: 2, address: '日本、〒564-0041 大阪府吹田市泉町２丁目３３', car_model: 'プリウス', lat: 34.760023031284106, lng: 135.5138928854205, situation: 'とてもせまいです。', star: ())
-      expect(road).to be_invalid
+    context "starカラム" do
+      it "空白でないこと" do
+        road.star = ()
+        is_expected.to eq false
+      end
     end
   end
 end
