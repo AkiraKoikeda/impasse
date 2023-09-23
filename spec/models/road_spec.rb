@@ -18,11 +18,11 @@ RSpec.describe Road, "モデルに関するテスト", type: :model do
       expect(road).to be_invalid
     end
     it "latが空白の場合のバリデーションチェック" do
-      road = Road.new(user_id: 2, address: '日本、〒564-0041 大阪府吹田市泉町２丁目３３', car_model: 'プリウス', lat: 0, lng: 135.5138928854205, situation: 'とてもせまいです。', star: 3)
+      road = Road.new(user_id: 2, address: '日本、〒564-0041 大阪府吹田市泉町２丁目３３', car_model: 'プリウス', lat: (), lng: 135.5138928854205, situation: 'とてもせまいです。', star: 3)
       expect(road).to be_invalid
     end
     it "lngが空白の場合のバリデーションチェック" do
-      road = Road.new(user_id: 2, address: '日本、〒564-0041 大阪府吹田市泉町２丁目３３', car_model: 'プリウス', lat: 34.760023031284106, lng: 0, situation: 'とてもせまいです。', star: 3)
+      road = Road.new(user_id: 2, address: '日本、〒564-0041 大阪府吹田市泉町２丁目３３', car_model: 'プリウス', lat: 34.760023031284106, lng: (), situation: 'とてもせまいです。', star: 3)
       expect(road).to be_invalid
     end
     it "situationが空白の場合のバリデーションチェック" do
@@ -30,7 +30,7 @@ RSpec.describe Road, "モデルに関するテスト", type: :model do
       expect(road).to be_invalid
     end
     it "starが空白の場合のバリデーションチェック" do
-      road = Road.new(user_id: 2, address: '日本、〒564-0041 大阪府吹田市泉町２丁目３３', car_model: 'プリウス', lat: 34.760023031284106, lng: 135.5138928854205, situation: 'とてもせまいです。', star: 0)
+      road = Road.new(user_id: 2, address: '日本、〒564-0041 大阪府吹田市泉町２丁目３３', car_model: 'プリウス', lat: 34.760023031284106, lng: 135.5138928854205, situation: 'とてもせまいです。', star: ())
       expect(road).to be_invalid
     end
   end
