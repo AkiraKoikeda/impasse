@@ -9,9 +9,9 @@ class User < ApplicationRecord
   has_many :roads, dependent: :destroy
   has_many :road_comments, dependent: :destroy
 
-  validates :name, presence: true
-  validates :email, presence: true
-  
+  validates :name, presence: true, length: { in: 2..10 }, uniqueness: true
+  validates :email, presence: true, uniqueness: true
+
   def self.guest
     find_or_create_by!(email: "guest@example.com", name: "ゲスト") do |user|
       user.password = SecureRandom.urlsafe_base64
