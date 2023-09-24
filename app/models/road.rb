@@ -14,5 +14,5 @@ class Road < ApplicationRecord
   validates :lng, presence: true, numericality: true
   validates :star, presence: true
   validates :car_model, presence: true, length: { in: 2..20 }
-  validates :situation, presence: true, length: { in: 6..250 }
+  validates :situation, presence: true, length: { in: 5..250 }
 end
