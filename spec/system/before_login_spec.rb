@@ -49,6 +49,24 @@ describe '[STEP1] ユーザログイン前のテスト' do
         home_link = find_all('a')[0].text
         expect(home_link).to match ('impasse.png')
       end
-    endv
+    end
+  end
+  describe '投稿詳細画面の確認' do
+    before do
+      visit road_path(road)
+    end
+    context '表示の確認' do
+      it '住所、緯度、経度、走行難度、車種、詳細説明が表示されている' do
+        expect(page).to have_content road.address
+        expect(page).to have_content road.lat
+        expect(page).to have_content road.lng
+        expect(page).to have_content road.star
+        expect(page).to have_content road.car_model
+        expect(page).to have_content road.situation
+      end
+      it 'コメントが表示されている' do
+        expect(page).to have_content road_comment.comment
+      end
+    end
   end
 end
