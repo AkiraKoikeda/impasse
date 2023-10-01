@@ -49,6 +49,6 @@ describe '[STEP1] ユーザログイン前のテスト' do
         home_link = find_all('a')[0].text
         expect(home_link).to match ('impasse.png')
       end
-    end
+    endv
   end
 end
