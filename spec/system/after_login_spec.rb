@@ -7,13 +7,13 @@ describe '[STEP2] ユーザログイン後のテスト' do
   let!(:other_user) { create(:user) }
   let!(:road) { create(:road, user: user) }
   let!(:other_road) { create(:road, user: other_user) }
-  
+
   before do
     visit new_user_session_path
     fill_in 'user[email]', with: user.email
     fill_in 'user[password]', with: user.password
     click_button 'ログイン'
-  end 
+  end
 
   describe 'トップ画面のテスト' do
     before do
@@ -50,5 +50,26 @@ describe '[STEP2] ユーザログイン後のテスト' do
       expect(log_out_link).to match("ログアウト")
     end
    end
+  end
+  describe '投稿詳細画面のテスト' do
+    before do
+      visit road_path(road)
+    end
+    context '表示の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/roads/' + road.id.to_s
+      end
+      it '住所、緯度、経度、走行難度、車種、詳細説明が表示されている' do
+        expect(page).to have_content road.address
+        expect(page).to have_content road.lat
+        expect(page).to have_content road.lng
+        expect(page).to have_content road.star
+        expect(page).to have_content road.car_model
+        expect(page).to have_content road.situation
+      end
+      it 'コメントが表示されている' do
+        expect(page).to have_content road_comment.comment
+      end
+    end
   end
 end
