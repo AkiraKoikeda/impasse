@@ -72,4 +72,16 @@ describe '[STEP2] ユーザログイン後のテスト' do
       end
     end
   end
+  describe '投稿編集画面のテスト' do
+    before do
+       visit edit_road_path(road)
+    end
+    context '表示内容のテスト' do
+      it '住所、緯度、経度、走行難度、車種、詳細説明の入力フォームがある' do
+        expect(page).to have_field road.address
+      end
+      it 'すべてのフォームに対応する投稿の値が入力されている' do
+      end
+    end
+  end
 end
