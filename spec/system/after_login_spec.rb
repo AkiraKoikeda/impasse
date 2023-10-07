@@ -30,19 +30,25 @@ describe '[STEP2] ユーザログイン後のテスト' do
         expect(home_link).to match ('impasse.png')
       end
 
-      it '地点登録リンクが表示される：左上から2番目になり、新規投稿画面へのリンクになっている'do
+      it '地点登録リンクが表示される：左上から2番目になり、地点登録へのリンクになっている'do
         new_post_link = find_all('a')[1].text
         expect(new_post_link).to match ('地点登録')
+        click_link '地点登録'
+        expect(current_path).to eq new_road_path
       end
 
       it 'Aboutリンクが表示される：左上から3番目になり、About画面へのリンクになっている' do
         about_link = find_all('a')[2].text
         expect(about_link).to match("About")
+        click_link 'About'
+        expect(current_path).to eq '/homes/about'
       end
 
       it 'マイページリンクが表示される：左上から4番目になり、マイページ画面へのリンクになっている' do
         mypage_link = find_all('a')[3].text
         expect(mypage_link).to match("マイページ")
+        click_link 'マイページ'
+        expect(current_path).to eq '/users/' + user.id.to_s
       end
 
       it 'ログアウトリンクが表示される：左上から5番目になり、ログアウト処理のリンクになっている' do
@@ -74,14 +80,20 @@ describe '[STEP2] ユーザログイン後のテスト' do
   end
   describe '投稿編集画面のテスト' do
     before do
-       visit edit_road_path(road)
+    #   second_user_road = FactoryBot.create(:road, user: user)
+    #   visit road_path(second_user_road)
+    #   click_link '編集'
+    #   expect(current_path).to eq edit_road_path(second_road_path)
+    visit edit_road_path(road)
     end
     context '表示内容のテスト' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/roads/' + road.id.to_s + '/edit'
+      end
       it '住所、緯度、経度、走行難度、車種、詳細説明の入力フォームがある' do
-        expect(page).to have_field road.address
+        expect(page).to have_field 'road[address]', with: road.address
       end
-      it 'すべてのフォームに対応する投稿の値が入力されている' do
-      end
+
     end
   end
 end
