@@ -15,11 +15,6 @@ describe '[STEP2] ユーザログイン後のテスト' do
     click_button 'ログイン'
   end
 
-  describe 'トップ画面のテスト' do
-    before do
-      visit root_path
-    end
-  end
   describe 'ヘッダーのテスト' do
     before do
       visit '/roads'
@@ -48,7 +43,7 @@ describe '[STEP2] ユーザログイン後のテスト' do
         mypage_link = find_all('a')[3].text
         expect(mypage_link).to match("マイページ")
         click_link 'マイページ'
-        expect(current_path).to eq '/users/' + user.id.to_s
+        expect(current_path).to eq '/users'
       end
 
       it 'ログアウトリンクが表示される：左上から5番目になり、ログアウト処理のリンクになっている' do
@@ -57,6 +52,39 @@ describe '[STEP2] ユーザログイン後のテスト' do
     end
    end
   end
+
+  describe '地点登録画面のテスト' do
+    before do
+      visit new_road_path
+    end
+    context '表示の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq new_road_path
+      end
+      it '住所の入力フォームがある' do
+        expect(page).to have_field 'road[address]'
+      end
+      it '緯度の入力フォームがある' do
+        expect(page).to have_field 'road[lat]'
+      end
+      it '経度の入力フォームがある' do
+        expect(page).to have_field 'road[lng]'
+      end
+      # it '走行難度の入力フォームがある' do
+      #   expect(page).to have_field 'road[star]'
+      # end
+      it '車種の入力フォームがある' do
+        expect(page).to have_field 'road[car_model]'
+      end
+      it '詳細説明の入力フォームがある' do
+        expect(page).to have_field 'road[situation]'
+      end
+      it '投稿ボタンがある' do
+        expect(page).to have_button '投稿'
+      end
+    end
+  end
+
   describe '投稿詳細画面のテスト' do
     before do
       visit road_path(road)
@@ -90,10 +118,27 @@ describe '[STEP2] ユーザログイン後のテスト' do
       it 'URLが正しい' do
         expect(current_path).to eq '/roads/' + road.id.to_s + '/edit'
       end
-      it '住所、緯度、経度、走行難度、車種、詳細説明の入力フォームがある' do
+      it '住所の入力フォームがある' do
         expect(page).to have_field 'road[address]', with: road.address
       end
-
+      it '緯度の入力フォームがある' do
+        expect(page).to have_field 'road[lat]', with: road.lat
+      end
+      it '経度の入力フォームがある' do
+        expect(page).to have_field 'road[lng]', with: road.lng
+      end
+      # it '走行難度の入力フォームがある' do
+      #   expect(page).to have_field 'road[star]', with: road.star
+      # end
+      it '車種の入力フォームがある' do
+        expect(page).to have_field 'road[car_model]', with: road.car_model
+      end
+      it '詳細説明の入力フォームがある' do
+        expect(page).to have_field 'road[situation]', with: road.situation
+      end
+      it '更新ボタンがある' do
+        expect(page).to have_button '更新'
+      end
     end
   end
 end
