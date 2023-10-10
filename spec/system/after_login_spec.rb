@@ -105,6 +105,16 @@ describe '[STEP2] ユーザログイン後のテスト' do
         expect(page).to have_content road_comment.comment
       end
     end
+    context '投稿成功のテスト' do
+      before do
+        fill_in 'road[address]', with: Faker::Lorem.characters(number:20)
+        fill_in 'road[lat]', with: Faker::Address.latitude
+        fill_in 'road[lng]', with: Faker::Address.longitude
+        fill_in 'road[star]', with: Faker::Number.number(digits: 1)
+        fill_in 'road[car_model]', with: Faker::Lorem.characters(number:5)
+        fill_in 'road[situation]', with: Faker::Lorem.characters(number:30)
+      end
+    end
   end
   describe '投稿編集画面のテスト' do
     before do
