@@ -83,6 +83,23 @@ describe '[STEP2] ユーザログイン後のテスト' do
         expect(page).to have_button '投稿'
       end
     end
+    context '投稿成功のテスト' do
+      before do
+        fill_in 'road[address]', with: Faker::Lorem.characters(number:20)
+        fill_in 'road[lat]', with: Faker::Address.latitude
+        fill_in 'road[lng]', with: Faker::Address.longitude
+        fill_in 'road[star]', with: Faker::Number.number(digits: 1)
+        fill_in 'road[car_model]', with: Faker::Lorem.characters(number:5)
+        fill_in 'road[situation]', with: Faker::Lorem.characters(number:30)
+      end
+      it '自分の新しい内容が正しく保存される' do
+        expect { click_button '投稿' }.to change(user.roads, :count).by(1)
+      end
+      it 'リダイレクト先が、保存できた投稿の詳細画面になっている' do
+        click_button '投稿'
+        expect(current_path).to eq '/roads/' + road.last.id.to_s
+      end
+    end
   end
 
   describe '投稿詳細画面のテスト' do
@@ -105,16 +122,7 @@ describe '[STEP2] ユーザログイン後のテスト' do
         expect(page).to have_content road_comment.comment
       end
     end
-    context '投稿成功のテスト' do
-      before do
-        fill_in 'road[address]', with: Faker::Lorem.characters(number:20)
-        fill_in 'road[lat]', with: Faker::Address.latitude
-        fill_in 'road[lng]', with: Faker::Address.longitude
-        fill_in 'road[star]', with: Faker::Number.number(digits: 1)
-        fill_in 'road[car_model]', with: Faker::Lorem.characters(number:5)
-        fill_in 'road[situation]', with: Faker::Lorem.characters(number:30)
-      end
-    end
+
   end
   describe '投稿編集画面のテスト' do
     before do
