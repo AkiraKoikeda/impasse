@@ -122,8 +122,8 @@ describe '[STEP2] ユーザログイン後のテスト' do
         expect(page).to have_content road_comment.comment
       end
     end
-
   end
+
   describe '投稿編集画面のテスト' do
     before do
     #   second_user_road = FactoryBot.create(:road, user: user)
@@ -156,6 +156,40 @@ describe '[STEP2] ユーザログイン後のテスト' do
       end
       it '更新ボタンがある' do
         expect(page).to have_button '更新'
+      end
+      context '投稿成功のテスト' do
+        before do
+          fill_in 'road[address]', with: Faker::Lorem.characters(number:20)
+          fill_in 'road[lat]', with: Faker::Address.latitude
+          fill_in 'road[lng]', with: Faker::Address.longitude
+          fill_in 'road[star]', with: Faker::Number.number(digits: 1)
+          fill_in 'road[car_model]', with: Faker::Lorem.characters(number:5)
+          fill_in 'road[situation]', with: Faker::Lorem.characters(number:30)
+        end
+        it '自分の新しい内容が正しく保存される' do
+          expect { click_button '投稿' }.to change(user.roads, :count).by(1)
+        end
+        it 'リダイレクト先が、保存できた投稿の詳細画面になっている' do
+          click_button '投稿'
+          expect(current_path).to eq '/roads/' + road.last.id.to_s
+        end
+      end
+    end
+  end
+
+  describe 'マイページ画面のテスト' do
+    before do
+      visit user_path(current_user)
+    end
+    context '表示の確認' do
+      it 'メールアドレスが表示されている' do
+        expect(page).to include user.email
+      end
+      it 'ユーザー名が表示されている' do
+        expect(page).to include user.name
+      end
+      it '編集ボタンが存在する' do
+        expect(page).to have_button '編集'
       end
     end
   end
