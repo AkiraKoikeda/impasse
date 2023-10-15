@@ -179,7 +179,7 @@ describe '[STEP2] ユーザログイン後のテスト' do
 
   describe 'マイページ画面のテスト' do
     before do
-      visit user_path(current_user)
+      visit user_path(:user)
     end
     context '表示の確認' do
       it 'メールアドレスが表示されている' do
@@ -190,6 +190,23 @@ describe '[STEP2] ユーザログイン後のテスト' do
       end
       it '編集ボタンが存在する' do
         expect(page).to have_button '編集'
+      end
+    end
+  end
+
+  describe 'ユーザー編集画面のテスト'do
+    before do
+      visit edit_user_path(user)
+    end
+    context '表示の確認' do
+      it 'メールアドレスフォームが存在する' do
+        expect(page).to eq have_field 'user[email]', with: user.email
+      end
+      it 'ユーザー名フォームが存在する' do
+        expect(page).to eq have_field 'user[name]', with: user.name
+      end
+      it '更新ボタンが存在する' do
+        expect(page).to eq have_button '更新'
       end
     end
   end
