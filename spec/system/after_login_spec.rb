@@ -196,7 +196,7 @@ describe '[STEP2] ユーザログイン後のテスト' do
 
   describe 'ユーザー編集画面のテスト'do
     before do
-      visit edit_user_path(user)
+      visit edit_user_path
     end
     context '表示の確認' do
       it 'メールアドレスフォームが存在する' do
@@ -208,6 +208,29 @@ describe '[STEP2] ユーザログイン後のテスト' do
       it '更新ボタンが存在する' do
         expect(page).to eq have_button '更新'
       end
+      it '退会ボタンが存在する' do
+        expect(page).to eq have_button '退会'
+      end
     end
+  end
+  
+  describe '退会確認画面のテスト' do
+    before do
+      visit unscribe_user_path
+    end
+    context '表示の確認' do
+      it '退会するボタンが存在する' do
+        expect(page).to eq have_button '退会する'
+      end
+      it '退会しないボタンが存在する' do
+        expect(page).to eq have_button '退会しない'
+      end
+    end
+    context '退会後の処理' do
+      
+    end
+    context '退会市内を押した場合の処理' do
+      
+    end 
   end
 end
