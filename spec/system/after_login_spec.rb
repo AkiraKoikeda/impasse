@@ -179,7 +179,7 @@ describe '[STEP2] ユーザログイン後のテスト' do
 
   describe 'マイページ画面のテスト' do
     before do
-      visit user_path(:user)
+      visit users_path
     end
     context '表示の確認' do
       it 'メールアドレスが表示されている' do
@@ -196,7 +196,7 @@ describe '[STEP2] ユーザログイン後のテスト' do
 
   describe 'ユーザー編集画面のテスト'do
     before do
-      visit edit_user_path
+      visit edit_users_path
     end
     context '表示の確認' do
       it 'メールアドレスフォームが存在する' do
@@ -213,7 +213,7 @@ describe '[STEP2] ユーザログイン後のテスト' do
       end
     end
   end
-  
+
   describe '退会確認画面のテスト' do
     before do
       visit unscribe_user_path
@@ -227,10 +227,10 @@ describe '[STEP2] ユーザログイン後のテスト' do
       end
     end
     context '退会後の処理' do
-      
+
     end
-    context '退会市内を押した場合の処理' do
-      
-    end 
+    context '退会しないを押した場合の処理' do
+
+    end
   end
 end
