@@ -227,10 +227,10 @@ describe '[STEP2] ユーザログイン後のテスト' do
       end
     end
     context '退会後の処理' do
-
+      
     end
     context '退会しないを押した場合の処理' do
-
+      
     end
   end
 end
